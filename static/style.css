@@ -1,0 +1,50 @@
+/* General */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #fff8f2;
+}
+
+/* Encabezado */
+header {
+    background-color: #d46a6a;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Menú */
+nav {
+    background-color: #f5c6aa;
+    padding: 10px;
+    text-align: center;
+}
+
+nav a {
+    margin: 0 15px;
+    color: #333;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav a:hover {
+    color: #d46a6a;
+}
+
+/* Secciones */
+section {
+    padding: 30px;
+}
+
+h2 {
+    color: #d46a6a;
+}
+
+/* Pie de página */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 15px;
+}
