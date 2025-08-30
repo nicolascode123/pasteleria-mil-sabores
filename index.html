@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pastelería Mil Sabores</title>
+  <meta name="description" content="Pastelería artesanal premium: tortas, pasteles y catering.">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+  <!-- NAVBAR -->
+  <header>
+    <nav class="navbar">
+      <div class="nav-left">
+        <img src="imagenes/logo.png" alt="Pastelería Mil Sabores" class="logo">
+      </div>
+      <ul class="nav-links">
+        <li><a href="#inicio">Inicio</a></li>
+        <li><a href="#nosotros">Nosotros</a></li>
+        <li><a href="#productos">Productos</a></li>
+        <li><a href="#ubicaciones">Tiendas</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+      <div class="nav-right">
+        <input type="text" placeholder="Buscar productos..." class="search-bar">
+        <a href="#" class="perfil">Perfil</a>
+        <a href="#" class="carrito">🛒</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- BANNER / HERO -->
+  <section class="banner">
+    <div class="banner-overlay">
+      <h1>Bienvenido a Pastelería Mil Sabores</h1>
+      <p>Deliciosos sabores artesanales para cada momento.</p>
+      <a class="btn" href="#productos">Ver productos</a>
+    </div>
+  </section>
+
+  <!-- PRODUCTOS DESTACADOS -->
+  <section id="destacados" class="container">
+    <h2 class="section-title">Productos Destacados</h2>
+    <div class="slider-container">
+      <div class="slider-track">
+        <div class="slide card">
+          <img src="imagenes/torta.png" alt="Torta de chocolate" />
+          <h3>Torta de Chocolate</h3>
+        </div>
+        <div class="slide card">
+          <img src="imagenes/cheesecake.png" alt="Cheesecake" />
+          <h3>Cheesecake</h3>
+        </div>
+        <div class="slide card">
+          <img src="imagenes/pie.png" alt="Pie de Limón" />
+          <h3>Pie de Limón</h3>
+        </div>
+        <div class="slide card">
+          <img src="imagenes/tortafrutal.png" alt="Tarta Frutal" />
+          <h3>Tarta Frutal</h3>
+        </div>
+        <div class="slide card">
+          <img src="imagenes/muffins.png" alt="Muffins" />
+          <h3>Muffins</h3>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BANNER / BOTÓN DE ENCARGO -->
+  <section id="encargar" class="encargo-container">
+    <a href="#formulario-encargo" class="encargo-link">
+      <img src="imagenes/ahorasi.png" alt="Encarga tu producto" />
+      <div class="encargo-text">
+        <h3>Encarga tu producto favorito</h3>
+        <p>Haz clic y dinos qué quieres que preparemos para ti.</p>
+      </div>
+    </a>
+  </section>
+
+  <!-- TODOS LOS PRODUCTOS -->
+  <!-- TODOS LOS PRODUCTOS -->
+<section id="productos" class="container products">
+  <h2 class="section-title">Nuestros productos</h2>
+  <div class="cards">
+    <article class="card">
+      <img src="imagenes/torta.png" alt="Torta de Chocolate" />
+      <div class="card-body">
+        <h3>Torta de Chocolate</h3>
+        <p>Bizcocho húmedo con cacao premium y ganache artesanal.</p>
+      </div>
+    </article>
+    <article class="card">
+      <img src="imagenes/cheesecake.png" alt="Cheesecake" />
+      <div class="card-body">
+        <h3>Cheesecake Frutos Rojos</h3>
+        <p>Suave mezcla de queso crema con base de galletas y coulis.</p>
+      </div>
+    </article>
+    <article class="card">
+      <img src="imagenes/pie.png" alt="Pastel de limón" />
+      <div class="card-body">
+        <h3>Pie de Limón</h3>
+        <p>Corteza crocante, relleno ácido-dulce y merengue italiano.</p>
+      </div>
+    </article>
+    <article class="card">
+      <img src="imagenes/brownie.png" alt="Brownie Especial" />
+      <div class="card-body">
+        <h3>Brownie Especial</h3>
+        <p>Brownie con nueces y chocolate belga.</p>
+      </div>
+    </article>
+    <article class="card">
+      <img src="imagenes/muffin.png" alt="Muffin de Vainilla" />
+      <div class="card-body">
+        <h3>Muffin de Vainilla</h3>
+        <p>Esponjoso muffin con chips de chocolate y esencia de vainilla.</p>
+      </div>
+    </article>
+    <article class="card">
+      <img src="imagenes/galletas.png" alt="Galletas" />
+      <div class="card-body">
+        <h3>Galletas Artesanales</h3>
+        <p>Variedad de galletas crocantes y deliciosas.</p>
+      </div>
+    </article>
+    <article class="card">
+      <img src="imagenes/muffins.png" alt="Cupcakes" />
+      <div class="card-body">
+        <h3>Cupcakes Decorados</h3>
+        <p>Coloridos y deliciosos cupcakes para cualquier ocasión.</p>
+      </div>
+    </article>
+    <article class="card">
+      <img src="imagenes/tortafrutal.png" alt="Tarta Frutal" />
+      <div class="card-body">
+        <h3>Tarta Frutal</h3>
+        <p>Tarta fresca con frutas de temporada y crema pastelera.</p>
+      </div>
+    </article>
+
+    <!-- NUEVOS PRODUCTOS -->
+    <article class="card">
+      <img src="imagenes/panqueques.png" alt="Panqueques" />
+      <div class="card-body">
+        <h3>Panqueques Dulces</h3>
+        <p>Panqueques esponjosos con miel y frutas frescas.</p>
+      </div>
+    </article>
+
+    <article class="card">
+      <img src="imagenes/croissant.png" alt="Croissant" />
+      <div class="card-body">
+        <h3>Croissant de Mantequilla</h3>
+        <p>Crujiente y hojaldrado, perfecto para el desayuno.</p>
+      </div>
+    </article>
+
+    <article class="card">
+      <img src="imagenes/CheesecakeChocolate.png" alt="Cheesecake Chocolate" />
+      <div class="card-body">
+        <h3>Cheesecake Chocolate</h3>
+        <p>Delicioso cheesecake con cobertura de chocolate oscuro.</p>
+      </div>
+    </article>
+
+    <article class="card">
+      <img src="imagenes/piedefrutilla.png" alt="Pie de Frutilla" />
+      <div class="card-body">
+        <h3>Pie de Frutilla</h3>
+        <p>Corteza crocante, relleno de crema y frutillas frescas.</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- BANNER INTERMEDIO -->
+<section class="banner-intermedio">
+  <img src="imagenes/banner1.jpg" alt="Banner Pastelería" />
+</section>
+
+  <!-- NOSOTROS -->
+  <section id="nosotros" class="container about">
+    <div class="about-text">
+      <h2 class="section-title">꧁༺ 𝓝𝓤𝓔𝓢𝓣𝓡𝓐 𝓗𝓘𝓢𝓣𝓞𝓡𝓘𝓐 ༻꧂</h2>
+      <p>꧁༺En Pastelería Mil Sabores creemos que cada dulce es un pedacito de felicidad. Nuestra pasión nació hace años en una pequeña cocina familiar, donde los aromas del cacao, la vainilla y la mantequilla fresca llenaban el aire y despertaban sonrisas. Cada receta que creamos es un homenaje a la tradición, pero con un toque moderno que sorprende y emociona.        Nuestro equipo de maestros pasteleros trabaja con amor y dedicación, seleccionando los ingredientes más puros y locales, porque creemos que lo que ponemos en cada pastel habla de quiénes somos. Cada torta, cheesecake o pie es pensado para transformar lo cotidiano en momentos memorables, celebrando la vida y sus pequeños grandes instantes.        Más que pastelería, somos creadores de recuerdos: del primer bocado que despierta la nostalgia de la infancia, de los aromas que nos transportan a los domingos en familia, y de los sabores que hacen sonreír a todos. Bienvenidos a Pastelería Mil Sabores, donde la pasión, la creatividad y el amor por lo artesanal se encuentran en cada dulce. ༻꧂
+    
+      </p>
+    </div>
+    <div class="about-img">
+      <img src="imagenes/personas.png" alt="Equipo de pastelería trabajando" />
+    </div>
+  </section>
+
+  <!-- UBICACIONES -->
+  <section id="ubicaciones" class="container locations">
+    <h2 class="section-title">Nuestras tiendas</h2>
+    <div class="cards">
+      <article class="loc">
+        <h3>Santiago Centro</h3>
+        <p>Av. Libertador 1234<br/>Horario: 09:00 - 20:00</p>
+      </article>
+      <article class="loc">
+        <h3>Providencia</h3>
+        <p>Av. Los Sabores 567<br/>Horario: 10:00 - 21:00</p>
+      </article>
+      <article class="loc">
+        <h3>Viña del Mar</h3>
+        <p>Calle Dulzura 890<br/>Horario: 09:30 - 20:30</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section id="contacto" class="container contact">
+    <h2 class="section-title">Contáctanos</h2>
+    <form>
+      <input type="text" placeholder="Nombre" required>
+      <input type="email" placeholder="Email" required>
+      <textarea placeholder="Mensaje" required></textarea>
+      <button type="submit" class="btn">Enviar</button>
+    </form>
+    <div class="map">
+      <iframe src="https://maps.google.com/maps?q=Santiago%20Centro&t=&z=13&ie=UTF8&iwloc=&output=embed" width="100%" height="300" style="border:0;" allowfullscreen loading="lazy"></iframe>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container footer-grid">
+      <div>
+        <p>© <span id="year"></span> Pastelería Mil Sabores — Todos los derechos reservados</p>
+      </div>
+      <div class="social">
+        <a href="https://wa.me/56998765432" target="_blank">WhatsApp</a>
+        <a href="https://instagram.com/tuusuario" target="_blank">Instagram</a>
+        <a href="https://youtube.com/tuusuario" target="_blank">YouTube</a>
+        <a href="mailto:correo@tudominio.com">Gmail</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="static/app.js"></script>
+</body>
+</html>
