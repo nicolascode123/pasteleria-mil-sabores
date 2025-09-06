@@ -9,8 +9,920 @@
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-  <!-- CSS -->
-  <link rel="stylesheet" href="static/style.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      line-height: 1.6;
+      color: #2d2d2d;
+      background: #fefefe;
+    }
+    
+    /* ==============================
+       NAVBAR
+    ============================== */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: rgba(255, 247, 240, 0.95);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-left .logo {
+      height: 90px;
+      width: auto;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #7a4b2d;
+      font-weight: 600;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: #d2691e;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .search-container {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .search-bar {
+      padding: 0.8rem 1rem;
+      border: 2px solid #e8e8e8;
+      border-radius: 25px;
+      outline: none;
+      width: 250px;
+      font-size: 0.9rem;
+      transition: all 0.3s;
+    }
+
+    .search-bar:focus {
+      border-color: #d2691e;
+      box-shadow: 0 0 0 3px rgba(210, 105, 30, 0.1);
+    }
+
+    .search-btn {
+      position: absolute;
+      right: 10px;
+      background: none;
+      border: none;
+      color: #7a4b2d;
+      cursor: pointer;
+      font-size: 1.1rem;
+    }
+
+    .perfil, .carrito-btn {
+      text-decoration: none;
+      color: #7a4b2d;
+      font-weight: 600;
+      padding: 0.8rem 1.2rem;
+      border-radius: 20px;
+      transition: all 0.3s;
+    }
+
+    .carrito-btn {
+      background: linear-gradient(135deg, #d2691e 0%, #b25014 100%);
+      color: white;
+      position: relative;
+      cursor: pointer;
+      border: none;
+    }
+
+    .carrito-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(210, 105, 30, 0.3);
+    }
+
+    .carrito-count {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background: #dc3545;
+      color: white;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      font-size: 0.7rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+
+    /* ==============================
+       RESULTADOS DE BÚSQUEDA
+    ============================== */
+    .search-results {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      max-height: 400px;
+      overflow-y: auto;
+      z-index: 200;
+      display: none;
+    }
+
+    .search-result-item {
+      display: flex;
+      align-items: center;
+      padding: 1rem;
+      border-bottom: 1px solid #f0f0f0;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .search-result-item:hover {
+      background: #f8f8f8;
+    }
+
+    .search-result-img {
+      width: 60px;
+      height: 60px;
+      border-radius: 10px;
+      object-fit: cover;
+      margin-right: 1rem;
+    }
+
+    .search-result-info h4 {
+      color: #7a4b2d;
+      margin-bottom: 0.3rem;
+    }
+
+    .search-result-info p {
+      color: #666;
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .search-result-price {
+      font-weight: 600;
+      color: #d2691e;
+    }
+
+    /* ==============================
+       CARRITO SIDEBAR
+    ============================== */
+    .carrito-sidebar {
+      position: fixed;
+      top: 0;
+      right: -400px;
+      width: 400px;
+      height: 100vh;
+      background: white;
+      box-shadow: -5px 0 20px rgba(0,0,0,0.1);
+      z-index: 1000;
+      transition: right 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .carrito-sidebar.active {
+      right: 0;
+    }
+
+    .carrito-header {
+      padding: 2rem;
+      border-bottom: 2px solid #f0f0f0;
+      background: #fff7f0;
+    }
+
+    .carrito-header h3 {
+      font-family: 'Playfair Display', serif;
+      color: #7a4b2d;
+      margin-bottom: 0.5rem;
+    }
+
+    .carrito-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #7a4b2d;
+    }
+
+    .carrito-items {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1rem;
+    }
+
+    .carrito-item {
+      display: flex;
+      align-items: center;
+      padding: 1rem;
+      border-bottom: 1px solid #f0f0f0;
+      gap: 1rem;
+    }
+
+    .carrito-item img {
+      width: 60px;
+      height: 60px;
+      border-radius: 10px;
+      object-fit: cover;
+    }
+
+    .carrito-item-info {
+      flex: 1;
+    }
+
+    .carrito-item-info h4 {
+      color: #7a4b2d;
+      margin-bottom: 0.3rem;
+      font-size: 0.9rem;
+    }
+
+    .carrito-item-price {
+      color: #d2691e;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .quantity-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .quantity-btn {
+      background: #f0f0f0;
+      border: none;
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .quantity-btn:hover {
+      background: #d2691e;
+      color: white;
+    }
+
+    .quantity {
+      font-weight: 600;
+      min-width: 20px;
+      text-align: center;
+    }
+
+    .remove-btn {
+      background: #dc3545;
+      color: white;
+      border: none;
+      padding: 0.3rem 0.6rem;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 0.8rem;
+    }
+
+    .carrito-footer {
+      padding: 2rem;
+      border-top: 2px solid #f0f0f0;
+      background: #fff7f0;
+    }
+
+    .carrito-total {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #7a4b2d;
+    }
+
+    .checkout-btn {
+      width: 100%;
+      padding: 1rem;
+      background: linear-gradient(135deg, #d2691e 0%, #b25014 100%);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .checkout-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(210, 105, 30, 0.3);
+    }
+
+    .carrito-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 999;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s;
+    }
+
+    .carrito-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .empty-cart {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: #666;
+    }
+
+    .empty-cart img {
+      width: 80px;
+      opacity: 0.5;
+      margin-bottom: 1rem;
+    }
+
+    /* ==============================
+       BANNER HERO
+    ============================== */
+    .banner {
+      height: 70vh;
+      background: linear-gradient(135deg, rgba(122, 75, 45, 0.8), rgba(210, 105, 30, 0)),
+              url('imagenes/banner1.jpg') center/cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;
+    }
+
+    .banner-overlay h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .banner-overlay p {
+      font-size: 1.3rem;
+      margin-bottom: 2rem;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 1rem 2rem;
+      background: linear-gradient(135deg, #d2691e 0%, #b25014 100%);
+      color: white;
+      text-decoration: none;
+      border-radius: 25px;
+      font-weight: 600;
+      transition: all 0.3s;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(210, 105, 30, 0.4);
+    }
+
+    /* ==============================
+       SLIDER DE PRODUCTOS DESTACADOS - INFINITO
+    ============================== */
+    .destacados-section {
+      padding: 4rem 2rem;
+      background: white;
+    }
+
+    .slider-container {
+      position: relative;
+      overflow: hidden;
+      border-radius: 20px;
+      background: white;
+      padding: 2rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .slider-track {
+      display: flex;
+      gap: 2rem;
+      animation: slideInfinite 20s infinite linear;
+    }
+
+    .slide {
+      min-width: 280px;
+      flex-shrink: 0;
+    }
+
+    @keyframes slideInfinite {
+      0% { 
+        transform: translateX(0); 
+      }
+      100% { 
+        transform: translateX(calc(-280px * 5 - 2rem * 4)); 
+      }
+    }
+
+    .slider-container:hover .slider-track {
+      animation-play-state: paused;
+    }
+
+    /* ==============================
+       ENCARGO BANNER CON IMAGEN DE FONDO
+    ============================== */
+    .encargo-container {
+      padding: 4rem 2rem;
+      background: url('imagenes/imagen4.png') center/cover;
+      text-align: center;
+      position: relative;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      min-height: 300px;
+    }
+
+    .encargo-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(122, 75, 45, 0.7), rgba(210, 105, 30, 0.7));
+      z-index: 1;
+    }
+
+    .encargo-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem;
+      background: white;
+      border-radius: 20px;
+      text-decoration: none;
+      color: #7a4b2d;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      transition: all 0.3s;
+      position: relative;
+      z-index: 2;
+    }
+
+    .encargo-link:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    }
+
+    .encargo-link img {
+      width: 100px;
+      height: 100px;
+      border-radius: 15px;
+    }
+
+    .encargo-text h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+      color: #7a4b2d;
+    }
+
+    .encargo-text p {
+      color: #666;
+      font-size: 1.1rem;
+    }
+
+    /* ==============================
+       PRODUCTOS
+    ============================== */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+    }
+
+    .section-title {
+      text-align: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      color: #7a4b2d;
+      margin-bottom: 3rem;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    .card {
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      transition: all 0.3s;
+      position: relative;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    }
+
+    .card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .card-body {
+      padding: 1.5rem;
+    }
+
+    .card h3 {
+      font-family: 'Playfair Display', serif;
+      color: #7a4b2d;
+      margin-bottom: 0.8rem;
+      font-size: 1.3rem;
+    }
+
+    .card p {
+      color: #666;
+      margin-bottom: 1rem;
+      font-size: 0.95rem;
+    }
+
+    .product-price {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #d2691e;
+      margin-bottom: 1rem;
+    }
+
+    .add-to-cart {
+      width: 100%;
+      padding: 0.8rem;
+      background: linear-gradient(135deg, #d2691e 0%, #b25014 100%);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .add-to-cart:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(210, 105, 30, 0.3);
+    }
+
+    /* ==============================
+       BANNER INTERMEDIO
+    ============================== */
+    .banner-intermedio {
+      width: 100vw;
+      position: relative;
+      left: 50%;
+      right: 50%;
+      margin-left: -50vw;
+      margin-right: -50vw;
+      margin: 4rem 0;
+      margin-left: -50vw;
+      margin-right: -50vw;
+    }
+
+    .banner-intermedio img {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* ==============================
+       NOSOTROS
+    ============================== */
+    .about {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      background: linear-gradient(135deg, #fff7f0 0%, #ffefd6 100%);
+      border-radius: 20px;
+      padding: 4rem;
+    }
+
+    .about-text p {
+      color: #5a5a5a;
+      font-size: 1.1rem;
+      line-height: 1.8;
+      text-align: justify;
+    }
+
+    .about-img img {
+      width: 100%;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+
+    /* ==============================
+       UBICACIONES CON IMAGENES GRANDES
+    ============================== */
+    .locations .cards {
+      gap: 2rem;
+    }
+
+    .loc {
+      background: linear-gradient(135deg, #fff7f0 0%, #ffefd6 100%);
+      padding: 2rem;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .loc::before {
+      content: '';
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120px;
+      height: 120px;
+      background-size: cover;
+      background-position: center;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      border: 3px solid white;
+    }
+
+    .loc.santiago::before {
+      background-image: url('imagenes/santiago.png');
+    }
+
+    .loc.providencia::before {
+      background-image: url('imagenes/providencia.png');
+    }
+
+    .loc.vina::before {
+      background-image: url('imagenes/viña.png');
+    }
+
+    .loc:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    }
+
+    .loc h3 {
+      font-family: 'Playfair Display', serif;
+      color: #7a4b2d;
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+      margin-top: 6.5rem;
+    }
+
+    .loc p {
+      color: #666;
+      line-height: 1.6;
+    }
+
+    /* ==============================
+       CONTACTO
+    ============================== */
+    .contact {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      align-items: start;
+    }
+
+    .contact form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      padding-right: 2rem;
+    }
+
+    .contact input,
+    .contact textarea {
+      padding: 1rem;
+      border: 2px solid #e8e8e8;
+      border-radius: 10px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1rem;
+      transition: all 0.3s;
+    }
+
+    .contact input:focus,
+    .contact textarea:focus {
+      outline: none;
+      border-color: #d2691e;
+      box-shadow: 0 0 0 3px rgba(210, 105, 30, 0.1);
+    }
+
+    .contact textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    .map {
+      margin-top: 0;
+    }
+
+    .map iframe {
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+
+    /* ==============================
+       FOOTER
+    ============================== */
+    footer {
+      background: linear-gradient(135deg, #7a4b2d 0%, #5a3621 100%);
+      color: white;
+      padding: 2rem 0;
+      margin-top: 4rem;
+    }
+
+    .footer-grid {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .social {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .social a {
+      color: white;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .social a:hover {
+      color: #d2691e;
+    }
+
+    /* ==============================
+       MENSAJE DE CONFIRMACIÓN
+    ============================== */
+    .toast {
+      position: fixed;
+      top: 100px;
+      right: 20px;
+      background: #4caf50;
+      color: white;
+      padding: 1rem 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      z-index: 1001;
+      transform: translateX(400px);
+      transition: transform 0.3s;
+    }
+
+    .toast.show {
+      transform: translateX(0);
+    }
+
+    /* ==============================
+       RESPONSIVE
+    ============================== */
+    @media (max-width: 768px) {
+      .navbar {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem;
+      }
+
+      .nav-links {
+        gap: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .search-bar {
+        width: 200px;
+      }
+
+      .carrito-sidebar {
+        width: 320px;
+        right: -320px;
+      }
+
+      .banner-overlay h1 {
+        font-size: 2.5rem;
+      }
+
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      .about {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        text-align: center;
+      }
+
+      .contact {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .contact form {
+        padding-right: 0;
+      }
+
+      .footer-grid {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+      }
+
+      .encargo-link {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .section-title {
+        font-size: 2rem;
+      }
+
+      .loc h3 {
+        margin-top: 5.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .nav-right {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .search-bar {
+        width: 180px;
+      }
+
+      .banner-overlay h1 {
+        font-size: 2rem;
+      }
+
+      .banner-overlay p {
+        font-size: 1.1rem;
+      }
+
+      .slider-track {
+        gap: 1rem;
+      }
+
+      .slide {
+        min-width: 250px;
+      }
+
+      .loc h3 {
+        margin-top: 4.5rem;
+      }
+    }
+  </style>
 </head>
 <body>
   <!-- NAVBAR -->
@@ -27,15 +939,47 @@
         <li><a href="#contacto">Contacto</a></li>
       </ul>
       <div class="nav-right">
-        <input type="text" placeholder="Buscar productos..." class="search-bar">
-        <a href="#" class="perfil">Perfil</a>
-        <a href="#" class="carrito">🛒</a>
+        <div class="search-container">
+          <input type="text" id="searchInput" placeholder="Buscar productos..." class="search-bar">
+          <button class="search-btn" onclick="toggleSearch()">🔍</button>
+          <div id="searchResults" class="search-results"></div>
+        </div>
+        <a href="perfil.html" class="perfil">Perfil</a>
+        <button class="carrito-btn" onclick="toggleCarrito()">
+          🛒 <span id="carritoCount" class="carrito-count">0</span>
+        </button>
       </div>
     </nav>
   </header>
 
+  <!-- CARRITO SIDEBAR -->
+  <div id="carritoOverlay" class="carrito-overlay" onclick="cerrarCarrito()"></div>
+  <div id="carritoSidebar" class="carrito-sidebar">
+    <div class="carrito-header">
+      <h3>Mi Carrito</h3>
+      <button class="carrito-close" onclick="cerrarCarrito()">×</button>
+      <p id="carritoItemCount">0 productos</p>
+    </div>
+    <div class="carrito-items" id="carritoItems">
+      <div class="empty-cart">
+        <p>Tu carrito está vacío</p>
+        <p>¡Agrega algunos deliciosos productos!</p>
+      </div>
+    </div>
+    <div class="carrito-footer">
+      <div class="carrito-total">
+        <span>Total: </span>
+        <span id="carritoTotal">$0</span>
+      </div>
+      <button class="checkout-btn" onclick="procederCompra()">Proceder al Pago</button>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATIONS -->
+  <div id="toast" class="toast"></div>
+
   <!-- BANNER / HERO -->
-  <section class="banner">
+  <section class="banner" id="inicio">
     <div class="banner-overlay">
       <h1>Bienvenido a Pastelería Mil Sabores</h1>
       <p>Deliciosos sabores artesanales para cada momento.</p>
@@ -43,39 +987,49 @@
     </div>
   </section>
 
-  <!-- PRODUCTOS DESTACADOS -->
-  <section id="destacados" class="container">
-    <h2 class="section-title">Productos Destacados</h2>
+  <!-- PRODUCTOS DESTACADOS CON SLIDER INFINITO -->
+  <section class="destacados-section">
+    <h2 class="section-title">𝐏𝐫𝐨𝐝𝐮𝐜𝐭𝐨𝐬 𝐃𝐞𝐬𝐭𝐚𝐜𝐚𝐝𝐨𝐬</h2>
     <div class="slider-container">
-      <div class="slider-track">
+      <div class="slider-track" id="sliderTrack">
         <div class="slide card">
-          <img src="imagenes/torta.png" alt="Torta de chocolate" />
-          <h3>Torta de Chocolate</h3>
+          <img src="imagenes/torta.png" alt="Torta de Chocolate" />
+          <div class="card-body">
+            <h3>Torta de Chocolate</h3>
+          </div>
         </div>
         <div class="slide card">
           <img src="imagenes/cheesecake.png" alt="Cheesecake" />
-          <h3>Cheesecake</h3>
+          <div class="card-body">
+            <h3>Cheesecake</h3>
+          </div>
         </div>
         <div class="slide card">
           <img src="imagenes/pie.png" alt="Pie de Limón" />
-          <h3>Pie de Limón</h3>
+          <div class="card-body">
+            <h3>Pie de Limón</h3>
+          </div>
         </div>
         <div class="slide card">
           <img src="imagenes/tortafrutal.png" alt="Tarta Frutal" />
-          <h3>Tarta Frutal</h3>
+          <div class="card-body">
+            <h3>Tarta Frutal</h3>
+          </div>
         </div>
         <div class="slide card">
           <img src="imagenes/muffins.png" alt="Muffins" />
-          <h3>Muffins</h3>
+          <div class="card-body">
+            <h3>Muffins</h3>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- BANNER / BOTÓN DE ENCARGO -->
+  <!-- BANNER / BOTÓN DE ENCARGO CON IMAGEN DE FONDO -->
   <section id="encargar" class="encargo-container">
     <a href="#formulario-encargo" class="encargo-link">
-      <img src="imagenes/ahorasi.png" alt="Encarga tu producto" />
+      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='order' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23d2691e'/%3E%3Cstop offset='100%25' stop-color='%23b25014'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='50' cy='50' r='45' fill='url(%23order)'/%3E%3Ctext x='50' y='60' text-anchor='middle' fill='white' font-size='40'%3E🎂%3C/text%3E%3C/svg%3E" alt="Encarga tu producto" />
       <div class="encargo-text">
         <h3>Encarga tu producto favorito</h3>
         <p>Haz clic y dinos qué quieres que preparemos para ti.</p>
@@ -84,113 +1038,25 @@
   </section>
 
   <!-- TODOS LOS PRODUCTOS -->
-  <!-- TODOS LOS PRODUCTOS -->
-<section id="productos" class="container products">
-  <h2 class="section-title">Nuestros productos</h2>
-  <div class="cards">
-    <article class="card">
-      <img src="imagenes/torta.png" alt="Torta de Chocolate" />
-      <div class="card-body">
-        <h3>Torta de Chocolate</h3>
-        <p>Bizcocho húmedo con cacao premium y ganache artesanal.</p>
-      </div>
-    </article>
-    <article class="card">
-      <img src="imagenes/cheesecake.png" alt="Cheesecake" />
-      <div class="card-body">
-        <h3>Cheesecake Frutos Rojos</h3>
-        <p>Suave mezcla de queso crema con base de galletas y coulis.</p>
-      </div>
-    </article>
-    <article class="card">
-      <img src="imagenes/pie.png" alt="Pastel de limón" />
-      <div class="card-body">
-        <h3>Pie de Limón</h3>
-        <p>Corteza crocante, relleno ácido-dulce y merengue italiano.</p>
-      </div>
-    </article>
-    <article class="card">
-      <img src="imagenes/brownie.png" alt="Brownie Especial" />
-      <div class="card-body">
-        <h3>Brownie Especial</h3>
-        <p>Brownie con nueces y chocolate belga.</p>
-      </div>
-    </article>
-    <article class="card">
-      <img src="imagenes/muffin.png" alt="Muffin de Vainilla" />
-      <div class="card-body">
-        <h3>Muffin de Vainilla</h3>
-        <p>Esponjoso muffin con chips de chocolate y esencia de vainilla.</p>
-      </div>
-    </article>
-    <article class="card">
-      <img src="imagenes/galletas.png" alt="Galletas" />
-      <div class="card-body">
-        <h3>Galletas Artesanales</h3>
-        <p>Variedad de galletas crocantes y deliciosas.</p>
-      </div>
-    </article>
-    <article class="card">
-      <img src="imagenes/muffins.png" alt="Cupcakes" />
-      <div class="card-body">
-        <h3>Cupcakes Decorados</h3>
-        <p>Coloridos y deliciosos cupcakes para cualquier ocasión.</p>
-      </div>
-    </article>
-    <article class="card">
-      <img src="imagenes/tortafrutal.png" alt="Tarta Frutal" />
-      <div class="card-body">
-        <h3>Tarta Frutal</h3>
-        <p>Tarta fresca con frutas de temporada y crema pastelera.</p>
-      </div>
-    </article>
+  <section id="productos" class="container products">
+    <h2 class="section-title">𝐍𝐮𝐞𝐬𝐭𝐫𝐨𝐬 𝐩𝐫𝐨𝐝𝐮𝐜𝐭𝐨𝐬</h2>
+    <div class="cards" id="productosContainer">
+      <!-- Los productos se cargarán dinámicamente -->
+    </div>
+  </section>
 
-    <!-- NUEVOS PRODUCTOS -->
-    <article class="card">
-      <img src="imagenes/panqueques.png" alt="Panqueques" />
-      <div class="card-body">
-        <h3>Panqueques Dulces</h3>
-        <p>Panqueques esponjosos con miel y frutas frescas.</p>
-      </div>
-    </article>
-
-    <article class="card">
-      <img src="imagenes/croissant.png" alt="Croissant" />
-      <div class="card-body">
-        <h3>Croissant de Mantequilla</h3>
-        <p>Crujiente y hojaldrado, perfecto para el desayuno.</p>
-      </div>
-    </article>
-
-    <article class="card">
-      <img src="imagenes/CheesecakeChocolate.png" alt="Cheesecake Chocolate" />
-      <div class="card-body">
-        <h3>Cheesecake Chocolate</h3>
-        <p>Delicioso cheesecake con cobertura de chocolate oscuro.</p>
-      </div>
-    </article>
-
-    <article class="card">
-      <img src="imagenes/piedefrutilla.png" alt="Pie de Frutilla" />
-      <div class="card-body">
-        <h3>Pie de Frutilla</h3>
-        <p>Corteza crocante, relleno de crema y frutillas frescas.</p>
-      </div>
-    </article>
-  </div>
-</section>
-
-<!-- BANNER INTERMEDIO -->
-<section class="banner-intermedio">
-  <img src="imagenes/banner1.jpg" alt="Banner Pastelería" />
-</section>
+  <!-- BANNER INTERMEDIO -->
+  <section class="banner-intermedio">
+    <img src="imagenes/imagendelmedio.png" alt="Banner Pastelería" />
+  </section>
 
   <!-- NOSOTROS -->
   <section id="nosotros" class="container about">
     <div class="about-text">
       <h2 class="section-title">꧁༺ 𝓝𝓤𝓔𝓢𝓣𝓡𝓐 𝓗𝓘𝓢𝓣𝓞𝓡𝓘𝓐 ༻꧂</h2>
-      <p>꧁༺En Pastelería Mil Sabores creemos que cada dulce es un pedacito de felicidad. Nuestra pasión nació hace años en una pequeña cocina familiar, donde los aromas del cacao, la vainilla y la mantequilla fresca llenaban el aire y despertaban sonrisas. Cada receta que creamos es un homenaje a la tradición, pero con un toque moderno que sorprende y emociona.        Nuestro equipo de maestros pasteleros trabaja con amor y dedicación, seleccionando los ingredientes más puros y locales, porque creemos que lo que ponemos en cada pastel habla de quiénes somos. Cada torta, cheesecake o pie es pensado para transformar lo cotidiano en momentos memorables, celebrando la vida y sus pequeños grandes instantes.        Más que pastelería, somos creadores de recuerdos: del primer bocado que despierta la nostalgia de la infancia, de los aromas que nos transportan a los domingos en familia, y de los sabores que hacen sonreír a todos. Bienvenidos a Pastelería Mil Sabores, donde la pasión, la creatividad y el amor por lo artesanal se encuentran en cada dulce. ༻꧂
-    
+      <p>
+        ꧁༺En Pastelería Mil Sabores creemos que cada dulce es un pedacito de felicidad. 
+        Nuestra pasión nació hace años en una pequeña cocina familiar, donde los aromas del cacao, la vainilla y la mantequilla fresca llenaban el aire y despertaban sonrisas. Cada receta que creamos es un homenaje a la tradición, pero con un toque moderno que sorprende y emociona. Nuestro equipo de maestros pasteleros trabaja con amor y dedicación, seleccionando los ingredientes más puros y locales, porque creemos que lo que ponemos en cada pastel habla de quiénes somos. Cada torta, cheesecake o pie es pensado para transformar lo cotidiano en momentos memorables, celebrando la vida y sus pequeños grandes instantes. Más que pastelería, somos creadores de recuerdos: del primer bocado que despierta la nostalgia de la infancia, de los aromas que nos transportan a los domingos en familia, y de los sabores que hacen sonreír a todos. Bienvenidos a Pastelería Mil Sabores, donde la pasión, la creatividad y el amor por lo artesanal se encuentran en cada dulce. ༻꧂
       </p>
     </div>
     <div class="about-img">
@@ -198,19 +1064,19 @@
     </div>
   </section>
 
-  <!-- UBICACIONES -->
+  <!-- UBICACIONES CON IMAGENES -->
   <section id="ubicaciones" class="container locations">
-    <h2 class="section-title">Nuestras tiendas</h2>
+    <h2 class="section-title">𝐍𝐮𝐞𝐬𝐭𝐫𝐚𝐬 𝐭𝐢𝐞𝐧𝐝𝐚𝐬</h2>
     <div class="cards">
-      <article class="loc">
+      <article class="loc santiago">
         <h3>Santiago Centro</h3>
         <p>Av. Libertador 1234<br/>Horario: 09:00 - 20:00</p>
       </article>
-      <article class="loc">
+      <article class="loc providencia">
         <h3>Providencia</h3>
         <p>Av. Los Sabores 567<br/>Horario: 10:00 - 21:00</p>
       </article>
-      <article class="loc">
+      <article class="loc vina">
         <h3>Viña del Mar</h3>
         <p>Calle Dulzura 890<br/>Horario: 09:30 - 20:30</p>
       </article>
@@ -218,16 +1084,18 @@
   </section>
 
   <!-- CONTACTO -->
-  <section id="contacto" class="container contact">
-    <h2 class="section-title">Contáctanos</h2>
-    <form>
-      <input type="text" placeholder="Nombre" required>
-      <input type="email" placeholder="Email" required>
-      <textarea placeholder="Mensaje" required></textarea>
-      <button type="submit" class="btn">Enviar</button>
-    </form>
-    <div class="map">
-      <iframe src="https://maps.google.com/maps?q=Santiago%20Centro&t=&z=13&ie=UTF8&iwloc=&output=embed" width="100%" height="300" style="border:0;" allowfullscreen loading="lazy"></iframe>
+  <section id="contacto" class="container">
+    <h2 class="section-title">𝐂𝐨𝐧𝐭𝐚́𝐜𝐭𝐚𝐧𝐨𝐬</h2>
+    <div class="contact">
+      <form>
+        <input type="text" placeholder="Nombre" required>
+        <input type="email" placeholder="Email" required>
+        <textarea placeholder="Mensaje" required></textarea>
+        <button type="submit" class="btn">Enviar</button>
+      </form>
+      <div class="map">
+        <iframe src="https://maps.google.com/maps?q=Santiago%20Centro&t=&z=13&ie=UTF8&iwloc=&output=embed" width="100%" height="300" style="border:0;" allowfullscreen loading="lazy"></iframe>
+      </div>
     </div>
   </section>
 
@@ -246,6 +1114,411 @@
     </div>
   </footer>
 
-  <script src="static/app.js"></script>
+  <script>
+    // Base de datos de productos
+    const productos = [
+      {
+        id: 1,
+        nombre: "Torta de Chocolate",
+        descripcion: "Bizcocho húmedo con cacao premium y ganache artesanal.",
+        precio: 25000,
+        imagen: "imagenes/torta.png",
+        categoria: "tortas"
+      },
+      {
+        id: 2,
+        nombre: "Cheesecake Frutos Rojos",
+        descripcion: "Suave mezcla de queso crema con base de galletas y coulis.",
+        precio: 18500,
+        imagen: "imagenes/cheesecake.png",
+        categoria: "cheesecakes"
+      },
+      {
+        id: 3,
+        nombre: "Pie de Limón",
+        descripcion: "Corteza crocante, relleno ácido-dulce y merengue italiano.",
+        precio: 16000,
+        imagen: "imagenes/pie.png",
+        categoria: "pies"
+      },
+      {
+        id: 4,
+        nombre: "Brownie Especial",
+        descripcion: "Brownie con nueces y chocolate belga.",
+        precio: 12000,
+        imagen: "imagenes/brownie.png",
+        categoria: "brownies"
+      },
+      {
+        id: 5,
+        nombre: "Muffin de Vainilla",
+        descripcion: "Esponjoso muffin con chips de chocolate y esencia de vainilla.",
+        precio: 3500,
+        imagen: "imagenes/muffin.png",
+        categoria: "muffins"
+      },
+      {
+        id: 6,
+        nombre: "Galletas Artesanales",
+        descripcion: "Variedad de galletas crocantes y deliciosas.",
+        precio: 8000,
+        imagen: "imagenes/galletas.png",
+        categoria: "galletas"
+      },
+      {
+        id: 7,
+        nombre: "Cupcakes Decorados",
+        descripcion: "Coloridos y deliciosos cupcakes para cualquier ocasión.",
+        precio: 15000,
+        imagen: "imagenes/muffins.png",
+        categoria: "cupcakes"
+      },
+      {
+        id: 8,
+        nombre: "Tarta Frutal",
+        descripcion: "Tarta fresca con frutas de temporada y crema pastelera.",
+        precio: 22000,
+        imagen: "imagenes/tortafrutal.png",
+        categoria: "tartas"
+      },
+      {
+        id: 9,
+        nombre: "Panqueques Dulces",
+        descripcion: "Panqueques esponjosos con miel y frutas frescas.",
+        precio: 9500,
+        imagen: "imagenes/panqueques.png",
+        categoria: "panqueques"
+      },
+      {
+        id: 10,
+        nombre: "Croissant de Mantequilla",
+        descripcion: "Crujiente y hojaldrado, perfecto para el desayuno.",
+        precio: 4500,
+        imagen: "imagenes/croissant.png",
+        categoria: "croissants"
+      },
+      {
+        id: 11,
+        nombre: "Cheesecake Chocolate",
+        descripcion: "Delicioso cheesecake con cobertura de chocolate oscuro.",
+        precio: 19000,
+        imagen: "imagenes/CheesecakeChocolate.png",
+        categoria: "cheesecakes"
+      },
+      {
+        id: 12,
+        nombre: "Pie de Frutilla",
+        descripcion: "Corteza crocante, relleno de crema y frutillas frescas.",
+        precio: 17500,
+        imagen: "imagenes/piedefrutilla.png",
+        categoria: "pies"
+      }
+    ];
+
+    // Carrito de compras
+    let carrito = [];
+
+    // Elementos DOM
+    const searchInput = document.getElementById('searchInput');
+    const searchResults = document.getElementById('searchResults');
+    const productosContainer = document.getElementById('productosContainer');
+    const carritoSidebar = document.getElementById('carritoSidebar');
+    const carritoOverlay = document.getElementById('carritoOverlay');
+    const carritoItems = document.getElementById('carritoItems');
+    const carritoCount = document.getElementById('carritoCount');
+    const carritoItemCount = document.getElementById('carritoItemCount');
+    const carritoTotal = document.getElementById('carritoTotal');
+    const toast = document.getElementById('toast');
+
+    // Inicializar la página
+    document.addEventListener('DOMContentLoaded', function() {
+      mostrarProductos();
+      actualizarCarrito();
+      configurarBusqueda();
+      configurarSliderInfinito();
+      document.getElementById('year').textContent = new Date().getFullYear();
+    });
+
+    // Configurar slider infinito
+    function configurarSliderInfinito() {
+      const sliderTrack = document.getElementById('sliderTrack');
+      if (sliderTrack) {
+        // Duplicar elementos para animación infinita sin interrupciones
+        const slides = Array.from(sliderTrack.children);
+        
+        // Crear duplicados para efecto infinito perfecto
+        slides.forEach(slide => {
+          const clone = slide.cloneNode(true);
+          sliderTrack.appendChild(clone);
+        });
+      }
+    }
+
+    // Mostrar todos los productos
+    function mostrarProductos(productosAMostrar = productos) {
+      productosContainer.innerHTML = '';
+      productosAMostrar.forEach(producto => {
+        const productoHTML = `
+          <article class="card" data-id="${producto.id}">
+            <img src="${producto.imagen}" alt="${producto.nombre}">
+            <div class="card-body">
+              <h3>${producto.nombre}</h3>
+              <p>${producto.descripcion}</p>
+              <div class="product-price">${producto.precio.toLocaleString('es-CL')}</div>
+              <button class="add-to-cart" onclick="agregarAlCarrito(${producto.id})">
+                Agregar al Carrito
+              </button>
+            </div>
+          </article>
+        `;
+        productosContainer.innerHTML += productoHTML;
+      });
+    }
+
+    // Configurar búsqueda
+    function configurarBusqueda() {
+      searchInput.addEventListener('input', function(e) {
+        const query = e.target.value.toLowerCase().trim();
+        
+        if (query.length === 0) {
+          searchResults.style.display = 'none';
+          return;
+        }
+
+        if (query.length < 2) return;
+
+        const resultados = productos.filter(producto => 
+          producto.nombre.toLowerCase().includes(query) ||
+          producto.descripcion.toLowerCase().includes(query) ||
+          producto.categoria.toLowerCase().includes(query)
+        );
+
+        mostrarResultadosBusqueda(resultados);
+      });
+
+      // Cerrar resultados al hacer clic fuera
+      document.addEventListener('click', function(e) {
+        if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
+          searchResults.style.display = 'none';
+        }
+      });
+    }
+
+    // Mostrar resultados de búsqueda
+    function mostrarResultadosBusqueda(resultados) {
+      if (resultados.length === 0) {
+        searchResults.innerHTML = '<div class="search-result-item"><p>No se encontraron productos</p></div>';
+      } else {
+        searchResults.innerHTML = resultados.map(producto => `
+          <div class="search-result-item" onclick="agregarAlCarrito(${producto.id})">
+            <img src="${producto.imagen}" alt="${producto.nombre}" class="search-result-img">
+            <div class="search-result-info">
+              <h4>${producto.nombre}</h4>
+              <p>${producto.descripcion}</p>
+              <div class="search-result-price">${producto.precio.toLocaleString('es-CL')}</div>
+            </div>
+          </div>
+        `).join('');
+      }
+      
+      searchResults.style.display = 'block';
+    }
+
+    // Alternar búsqueda
+    function toggleSearch() {
+      searchInput.focus();
+    }
+
+    // Agregar producto al carrito
+    function agregarAlCarrito(id) {
+      const producto = productos.find(p => p.id === id);
+      if (!producto) return;
+
+      const itemExistente = carrito.find(item => item.id === id);
+      
+      if (itemExistente) {
+        itemExistente.cantidad += 1;
+      } else {
+        carrito.push({
+          ...producto,
+          cantidad: 1
+        });
+      }
+
+      actualizarCarrito();
+      mostrarToast(`${producto.nombre} agregado al carrito`);
+      searchResults.style.display = 'none';
+      searchInput.value = '';
+    }
+
+    // Actualizar carrito
+    function actualizarCarrito() {
+      const totalItems = carrito.reduce((sum, item) => sum + item.cantidad, 0);
+      const totalPrecio = carrito.reduce((sum, item) => sum + (item.precio * item.cantidad), 0);
+
+      carritoCount.textContent = totalItems;
+      carritoCount.style.display = totalItems > 0 ? 'flex' : 'none';
+      carritoItemCount.textContent = `${totalItems} productos`;
+      carritoTotal.textContent = `${totalPrecio.toLocaleString('es-CL')}`;
+
+      if (carrito.length === 0) {
+        carritoItems.innerHTML = `
+          <div class="empty-cart">
+            <p>Tu carrito está vacío</p>
+            <p>¡Agrega algunos deliciosos productos!</p>
+          </div>
+        `;
+      } else {
+        carritoItems.innerHTML = carrito.map(item => `
+          <div class="carrito-item">
+            <img src="${item.imagen}" alt="${item.nombre}">
+            <div class="carrito-item-info">
+              <h4>${item.nombre}</h4>
+              <div class="carrito-item-price">${item.precio.toLocaleString('es-CL')}</div>
+              <div class="quantity-controls">
+                <button class="quantity-btn" onclick="cambiarCantidad(${item.id}, -1)">-</button>
+                <span class="quantity">${item.cantidad}</span>
+                <button class="quantity-btn" onclick="cambiarCantidad(${item.id}, 1)">+</button>
+                <button class="remove-btn" onclick="eliminarDelCarrito(${item.id})">Eliminar</button>
+              </div>
+            </div>
+          </div>
+        `).join('');
+      }
+    }
+
+    // Cambiar cantidad de producto
+    function cambiarCantidad(id, cambio) {
+      const item = carrito.find(item => item.id === id);
+      if (!item) return;
+
+      item.cantidad += cambio;
+
+      if (item.cantidad <= 0) {
+        eliminarDelCarrito(id);
+      } else {
+        actualizarCarrito();
+      }
+    }
+
+    // Eliminar producto del carrito
+    function eliminarDelCarrito(id) {
+      carrito = carrito.filter(item => item.id !== id);
+      actualizarCarrito();
+    }
+
+    // Toggle carrito
+    function toggleCarrito() {
+      carritoSidebar.classList.add('active');
+      carritoOverlay.classList.add('active');
+    }
+
+    // Cerrar carrito
+    function cerrarCarrito() {
+      carritoSidebar.classList.remove('active');
+      carritoOverlay.classList.remove('active');
+    }
+
+    // Proceder a la compra
+    function procederCompra() {
+      if (carrito.length === 0) {
+        mostrarToast('Tu carrito está vacío');
+        return;
+      }
+      
+      const total = carrito.reduce((sum, item) => sum + (item.precio * item.cantidad), 0);
+      const mensaje = `¡Gracias por tu compra de ${total.toLocaleString('es-CL')}! En breve nos contactaremos contigo.`;
+      
+      mostrarToast(mensaje, 'success', 4000);
+      carrito = [];
+      actualizarCarrito();
+      cerrarCarrito();
+    }
+
+    // Mostrar mensaje toast
+    function mostrarToast(mensaje, tipo = 'success', duracion = 3000) {
+      toast.textContent = mensaje;
+      toast.className = `toast ${tipo}`;
+      toast.classList.add('show');
+
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, duracion);
+    }
+
+    // Smooth scroll para navegación
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // Manejar formulario de contacto
+    const contactForm = document.querySelector('.contact form');
+    if (contactForm) {
+      contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        mostrarToast('¡Mensaje enviado correctamente! Te contactaremos pronto.');
+        this.reset();
+      });
+    }
+
+    // Efectos de hover y animaciones
+    document.addEventListener('mouseover', function(e) {
+      if (e.target.classList.contains('card')) {
+        e.target.style.transform = 'translateY(-10px) scale(1.02)';
+      }
+    });
+
+    document.addEventListener('mouseout', function(e) {
+      if (e.target.classList.contains('card')) {
+        e.target.style.transform = 'translateY(0) scale(1)';
+      }
+    });
+
+    // Lazy loading de imágenes
+    const images = document.querySelectorAll('img');
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const img = entry.target;
+          img.classList.add('loaded');
+          observer.unobserve(img);
+        }
+      });
+    });
+
+    images.forEach(img => imageObserver.observe(img));
+
+    // Animaciones al scroll
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+
+    // Aplicar animaciones a elementos
+    document.querySelectorAll('.card, .section-title, .about-text, .about-img').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(50px)';
+      el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      observer.observe(el);
+    });
+  </script>
 </body>
 </html>
