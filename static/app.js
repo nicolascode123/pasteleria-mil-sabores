@@ -11,41 +11,60 @@ if(form){
   });
 }
 
-// SLIDER productos destacados
+// SLIDER productos destacados (loop infinito)
 const track = document.querySelector('.slider-track');
-if(track){
+if (track) {
+  // 1) Guardamos los originales
+  const originals = Array.from(track.children);
+  if (originals.length === 0) return;
+
+  // 2) Clonamos: al final y al inicio (una vez cada uno)
+  originals.forEach(s => track.appendChild(s.cloneNode(true)));
+  originals.forEach(s => track.insertBefore(s.cloneNode(true), track.firstChild));
+
+  // 3) Estado
   let slides = Array.from(track.children);
+  const originalsCount = originals.length;
+  const GAP = 24; // ajusta si tu CSS usa otro gap
+  let slideWidth = 0;
+  let index = originalsCount; // empezamos en el primer "real"
 
-  slides.forEach(slide => {
-      const clone = slide.cloneNode(true);
-      track.appendChild(clone);
-  });
-
-  slides.forEach(slide => {
-      const clone = slide.cloneNode(true);
-      track.insertBefore(clone, track.firstChild);
-  });
-
-  slides = Array.from(track.children);
-  const slideWidth = slides[0].getBoundingClientRect().width + 24;
-  let slideIndex = slides.length / 3;
-
-  track.style.transform = `translateX(-${slideWidth * slideIndex}px)`;
-
-  function moveSlider() {
-      slideIndex++;
-      track.style.transition = "transform 0.5s ease";
-      track.style.transform = `translateX(-${slideWidth * slideIndex}px)`;
-
-      track.addEventListener("transitionend", () => {
-          if (slideIndex >= slides.length - (slides.length / 3)) {
-              track.style.transition = "none";
-              slideIndex = slides.length / 3;
-              track.style.transform = `translateX(-${slideWidth * slideIndex}px)`;
-          }
-      });
+  // 4) Medir ancho y posicionar
+  function measure() {
+    slideWidth = slides[0].getBoundingClientRect().width + GAP;
+    track.style.transition = 'none';
+    track.style.transform = `translateX(-${slideWidth * index}px)`;
+    // forzar reflow para que luego la transición vuelva a funcionar
+    // eslint-disable-next-line no-unused-expressions
+    track.offsetHeight;
+    track.style.transition = 'transform 0.5s ease';
   }
 
+  window.addEventListener('load', measure);
+  window.addEventListener('resize', measure);
+  measure(); // por si ya está todo listo
+
+  // 5) Avanzar
+  function moveSlider() {
+    index += 1;
+    track.style.transition = 'transform 0.5s ease';
+    track.style.transform = `translateX(-${slideWidth * index}px)`;
+  }
+
+  // 6) Al terminar la transición, si caemos en clones → saltamos al real
+  track.addEventListener('transitionend', () => {
+    // zona clon del final (originalsCount..originalsCount*2-1 son "reales")
+    if (index >= originalsCount * 2) {
+      track.style.transition = 'none';
+      index = originalsCount;
+      track.style.transform = `translateX(-${slideWidth * index}px)`;
+      // reactivar transición para el próximo paso
+      track.offsetHeight;
+      track.style.transition = 'transform 0.5s ease';
+    }
+  });
+
+  // 7) autoplay
   setInterval(moveSlider, 3000);
 }
 

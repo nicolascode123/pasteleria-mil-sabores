@@ -137,6 +137,258 @@
     }
 
     /* ==============================
+       MODAL DE REGISTRO/LOGIN
+    ============================== */
+    .auth-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      visibility: hidden;
+      opacity: 0;
+      transition: all 0.3s;
+    }
+
+    .auth-modal.active {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    .auth-container {
+      background: white;
+      border-radius: 20px;
+      padding: 2rem;
+      max-width: 400px;
+      width: 90%;
+      position: relative;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    }
+
+    .auth-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #7a4b2d;
+    }
+
+    .auth-tabs {
+      display: flex;
+      margin-bottom: 2rem;
+      border-bottom: 2px solid #f0f0f0;
+    }
+
+    .auth-tab {
+      flex: 1;
+      padding: 1rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      color: #666;
+      border-bottom: 2px solid transparent;
+    }
+
+    .auth-tab.active {
+      color: #d2691e;
+      border-bottom-color: #d2691e;
+    }
+
+    .auth-form {
+      display: none;
+    }
+
+    .auth-form.active {
+      display: block;
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: #7a4b2d;
+      font-weight: 600;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 0.8rem;
+      border: 2px solid #e8e8e8;
+      border-radius: 10px;
+      font-size: 1rem;
+      transition: border-color 0.3s;
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: #d2691e;
+    }
+
+    .promo-code-section {
+      background: #fff7f0;
+      padding: 1rem;
+      border-radius: 10px;
+      margin-bottom: 1rem;
+    }
+
+    .promo-code-section h4 {
+      color: #d2691e;
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    .promo-code-section p {
+      font-size: 0.8rem;
+      color: #666;
+      margin-bottom: 0.5rem;
+    }
+
+    .age-discount {
+      background: #e8f5e8;
+      padding: 0.5rem;
+      border-radius: 5px;
+      font-size: 0.8rem;
+      color: #2e7d32;
+      margin-top: 0.5rem;
+    }
+
+    /* ==============================
+       FILTROS DE PRODUCTOS
+    ============================== */
+    .product-filters {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+      padding: 2rem;
+      background: #fff7f0;
+      border-radius: 15px;
+    }
+
+    .filter-btn {
+      padding: 0.8rem 1.5rem;
+      border: 2px solid #d2691e;
+      background: white;
+      color: #d2691e;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-weight: 600;
+    }
+
+    .filter-btn.active,
+    .filter-btn:hover {
+      background: #d2691e;
+      color: white;
+    }
+
+    /* ==============================
+       MENSAJE DE DESCUENTOS
+    ============================== */
+    .discount-banner {
+      background: linear-gradient(135deg, #4caf50 0%, #2e7d32 100%);
+      color: white;
+      padding: 1rem;
+      text-align: center;
+      margin-bottom: 2rem;
+      border-radius: 10px;
+      display: none;
+    }
+
+    .discount-banner.active {
+      display: block;
+    }
+
+    /* ==============================
+       FORMULARIO DE PERSONALIZACIÓN
+    ============================== */
+    .personalize-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      visibility: hidden;
+      opacity: 0;
+      transition: all 0.3s;
+    }
+
+    .personalize-modal.active {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    .personalize-container {
+      background: white;
+      border-radius: 20px;
+      padding: 2rem;
+      max-width: 500px;
+      width: 90%;
+      position: relative;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    }
+
+    .size-options {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .size-option {
+      flex: 1;
+      padding: 1rem;
+      border: 2px solid #e8e8e8;
+      border-radius: 10px;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.3s;
+    }
+
+    .size-option.selected {
+      border-color: #d2691e;
+      background: #fff7f0;
+    }
+
+    .shape-options {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .shape-option {
+      flex: 1;
+      padding: 1rem;
+      border: 2px solid #e8e8e8;
+      border-radius: 10px;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.3s;
+    }
+
+    .shape-option.selected {
+      border-color: #d2691e;
+      background: #fff7f0;
+    }
+
+    /* ==============================
        RESULTADOS DE BÚSQUEDA
     ============================== */
     .search-results {
@@ -890,6 +1142,29 @@
       .loc h3 {
         margin-top: 5.5rem;
       }
+
+      .product-filters {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .filter-btn {
+        width: 100%;
+        max-width: 200px;
+      }
+
+      .auth-container {
+        margin: 1rem;
+      }
+
+      .personalize-container {
+        margin: 1rem;
+      }
+
+      .size-options,
+      .shape-options {
+        flex-direction: column;
+      }
     }
 
     @media (max-width: 480px) {
@@ -921,10 +1196,134 @@
       .loc h3 {
         margin-top: 4.5rem;
       }
+
+      .carrito-sidebar {
+        width: 100%;
+        right: -100%;
+      }
     }
   </style>
 </head>
 <body>
+  <!-- MODAL DE AUTENTICACIÓN -->
+  <div id="authModal" class="auth-modal">
+    <div class="auth-container">
+      <button class="auth-close" onclick="cerrarAuthModal()">×</button>
+      <div class="auth-tabs">
+        <button class="auth-tab active" onclick="cambiarTab('login')">Iniciar Sesión</button>
+        <button class="auth-tab" onclick="cambiarTab('register')">Registrarse</button>
+      </div>
+      
+      <!-- Formulario de Login -->
+      <form id="loginForm" class="auth-form active">
+        <div class="form-group">
+          <label for="loginEmail">Email</label>
+          <input type="email" id="loginEmail" required>
+        </div>
+        <div class="form-group">
+          <label for="loginPassword">Contraseña</label>
+          <input type="password" id="loginPassword" required>
+        </div>
+        <button type="submit" class="btn">Iniciar Sesión</button>
+      </form>
+
+      <!-- Formulario de Registro -->
+      <form id="registerForm" class="auth-form">
+        <div class="form-group">
+          <label for="registerName">Nombre Completo</label>
+          <input type="text" id="registerName" required>
+        </div>
+        <div class="form-group">
+          <label for="registerEmail">Email</label>
+          <input type="email" id="registerEmail" required>
+        </div>
+        <div class="form-group">
+          <label for="registerAge">Edad</label>
+          <input type="number" id="registerAge" min="1" max="120" required>
+          <div id="ageDiscount" class="age-discount" style="display: none;">
+            ¡Felicidades! Como tienes 50+ años, obtienes 50% de descuento en todos los productos.
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="registerPassword">Contraseña</label>
+          <input type="password" id="registerPassword" required>
+        </div>
+        
+        <div class="promo-code-section">
+          <h4>Códigos Promocionales</h4>
+          <div class="form-group">
+            <label for="promoCode">Código Promocional (opcional)</label>
+            <input type="text" id="promoCode" placeholder="Ej: FELICES50">
+            <p>• FELICES50: 10% de descuento de por vida</p>
+            <p>• Email @duocuc.cl: Torta gratis en tu cumpleaños</p>
+          </div>
+        </div>
+        
+        <button type="submit" class="btn">Registrarse</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL DE PERSONALIZACIÓN -->
+  <div id="personalizeModal" class="personalize-modal">
+    <div class="personalize-container">
+      <button class="auth-close" onclick="cerrarPersonalizeModal()">×</button>
+      <h3>Personalizar Producto</h3>
+      
+      <div class="form-group">
+        <label>Forma:</label>
+        <div class="shape-options">
+          <div class="shape-option" data-shape="cuadrada">
+            <h4>Cuadrada</h4>
+            <p>Clásica y elegante</p>
+          </div>
+          <div class="shape-option" data-shape="circular">
+            <h4>Circular</h4>
+            <p>Tradicional y perfecta</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Tamaño:</label>
+        <div class="size-options">
+          <div class="size-option" data-size="pequeño" data-price="0">
+            <h4>Pequeño</h4>
+            <p>8-10 personas</p>
+            <p>Sin costo adicional</p>
+          </div>
+          <div class="size-option" data-size="mediano" data-price="5000">
+            <h4>Mediano</h4>
+            <p>12-15 personas</p>
+            <p>+$5.000</p>
+          </div>
+          <div class="size-option" data-size="grande" data-price="10000">
+            <h4>Grande</h4>
+            <p>18-20 personas</p>
+            <p>+$10.000</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="customMessage">Mensaje Personalizado:</label>
+        <input type="text" id="customMessage" placeholder="Ej: Feliz Cumpleaños María" maxlength="50">
+      </div>
+
+      <div class="form-group">
+        <label for="deliveryDate">Fecha de Entrega Preferida:</label>
+        <input type="date" id="deliveryDate">
+      </div>
+
+      <div class="carrito-total">
+        <span>Precio Final:</span>
+        <span id="finalPrice">$0</span>
+      </div>
+
+      <button class="btn" onclick="agregarProductoPersonalizado()">Agregar al Carrito</button>
+    </div>
+  </div>
+
   <!-- NAVBAR -->
   <header>
     <nav class="navbar">
@@ -944,13 +1343,18 @@
           <button class="search-btn" onclick="toggleSearch()">🔍</button>
           <div id="searchResults" class="search-results"></div>
         </div>
-        <a href="perfil.html" class="perfil">Perfil</a>
+        <a href="#" class="perfil" onclick="abrirAuthModal()">Perfil</a>
         <button class="carrito-btn" onclick="toggleCarrito()">
           🛒 <span id="carritoCount" class="carrito-count">0</span>
         </button>
       </div>
     </nav>
   </header>
+
+  <!-- BANNER DE DESCUENTOS -->
+  <div id="discountBanner" class="discount-banner">
+    <p id="discountMessage"></p>
+  </div>
 
   <!-- CARRITO SIDEBAR -->
   <div id="carritoOverlay" class="carrito-overlay" onclick="cerrarCarrito()"></div>
@@ -982,7 +1386,7 @@
   <section class="banner" id="inicio">
     <div class="banner-overlay">
       <h1>Bienvenido a Pastelería Mil Sabores</h1>
-      <p>Deliciosos sabores artesanales para cada momento.</p>
+      <p>Deliciosos sabores artesanales para cada momento especial.</p>
       <a class="btn" href="#productos">Ver productos</a>
     </div>
   </section>
@@ -993,33 +1397,33 @@
     <div class="slider-container">
       <div class="slider-track" id="sliderTrack">
         <div class="slide card">
-          <img src="imagenes/torta.png" alt="Torta de Chocolate" />
+          <img src="imagenes/tortavegana.png" alt="Torta Vegana" />
           <div class="card-body">
-            <h3>Torta de Chocolate</h3>
+            <h3>Torta Cuadrada de Chocolate</h3>
           </div>
         </div>
         <div class="slide card">
-          <img src="imagenes/cheesecake.png" alt="Cheesecake" />
+          <img src="imagenes/xd.png" alt="Tiramisu Clasico" />
           <div class="card-body">
-            <h3>Cheesecake</h3>
+            <h3>Cheesecake Sin Azúcar</h3>
           </div>
         </div>
         <div class="slide card">
-          <img src="imagenes/pie.png" alt="Pie de Limón" />
+          <img src="imagenes/tortamanjar.png" alt="Torta circular de manjar" />
           <div class="card-body">
-            <h3>Pie de Limón</h3>
+            <h3>Mousse de Chocolate</h3>
           </div>
         </div>
         <div class="slide card">
-          <img src="imagenes/tortafrutal.png" alt="Tarta Frutal" />
+          <img src="imagenes/naranja.png" alt="Tarta Sin Azucar de Naranja" />
           <div class="card-body">
-            <h3>Tarta Frutal</h3>
+            <h3>Torta Circular de Frutas</h3>
           </div>
         </div>
         <div class="slide card">
-          <img src="imagenes/muffins.png" alt="Muffins" />
+          <img src="imagenes/galletas.png" alt="Galletas de Chocolate" />
           <div class="card-body">
-            <h3>Muffins</h3>
+            <h3>Tortas Especiales</h3>
           </div>
         </div>
       </div>
@@ -1028,11 +1432,11 @@
 
   <!-- BANNER / BOTÓN DE ENCARGO CON IMAGEN DE FONDO -->
   <section id="encargar" class="encargo-container">
-    <a href="#formulario-encargo" class="encargo-link">
+    <a href="#formulario-encargo" class="encargo-link" onclick="abrirPersonalizeModal()">
       <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='order' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23d2691e'/%3E%3Cstop offset='100%25' stop-color='%23b25014'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='50' cy='50' r='45' fill='url(%23order)'/%3E%3Ctext x='50' y='60' text-anchor='middle' fill='white' font-size='40'%3E🎂%3C/text%3E%3C/svg%3E" alt="Encarga tu producto" />
       <div class="encargo-text">
         <h3>Encarga tu producto favorito</h3>
-        <p>Haz clic y dinos qué quieres que preparemos para ti.</p>
+        <p>Personaliza forma, tamaño y mensaje para tu ocasión especial.</p>
       </div>
     </a>
   </section>
@@ -1040,6 +1444,19 @@
   <!-- TODOS LOS PRODUCTOS -->
   <section id="productos" class="container products">
     <h2 class="section-title">𝐍𝐮𝐞𝐬𝐭𝐫𝐨𝐬 𝐩𝐫𝐨𝐝𝐮𝐜𝐭𝐨𝐬</h2>
+    
+    <!-- FILTROS DE CATEGORÍAS -->
+    <div class="product-filters">
+      <button class="filter-btn active" data-category="todos">Todos</button>
+      <button class="filter-btn" data-category="tortas-cuadradas">Tortas Cuadradas</button>
+      <button class="filter-btn" data-category="tortas-circulares">Tortas Circulares</button>
+      <button class="filter-btn" data-category="postres-individuales">Postres Individuales</button>
+      <button class="filter-btn" data-category="sin-azucar">Sin Azúcar</button>
+      <button class="filter-btn" data-category="sin-gluten">Sin Gluten</button>
+      <button class="filter-btn" data-category="vegana">Vegana</button>
+      <button class="filter-btn" data-category="especiales">Especiales</button>
+    </div>
+    
     <div class="cards" id="productosContainer">
       <!-- Los productos se cargarán dinámicamente -->
     </div>
@@ -1055,8 +1472,7 @@
     <div class="about-text">
       <h2 class="section-title">꧁༺ 𝓝𝓤𝓔𝓢𝓣𝓡𝓐 𝓗𝓘𝓢𝓣𝓞𝓡𝓘𝓐 ༻꧂</h2>
       <p>
-        ꧁༺En Pastelería Mil Sabores creemos que cada dulce es un pedacito de felicidad. 
-        Nuestra pasión nació hace años en una pequeña cocina familiar, donde los aromas del cacao, la vainilla y la mantequilla fresca llenaban el aire y despertaban sonrisas. Cada receta que creamos es un homenaje a la tradición, pero con un toque moderno que sorprende y emociona. Nuestro equipo de maestros pasteleros trabaja con amor y dedicación, seleccionando los ingredientes más puros y locales, porque creemos que lo que ponemos en cada pastel habla de quiénes somos. Cada torta, cheesecake o pie es pensado para transformar lo cotidiano en momentos memorables, celebrando la vida y sus pequeños grandes instantes. Más que pastelería, somos creadores de recuerdos: del primer bocado que despierta la nostalgia de la infancia, de los aromas que nos transportan a los domingos en familia, y de los sabores que hacen sonreír a todos. Bienvenidos a Pastelería Mil Sabores, donde la pasión, la creatividad y el amor por lo artesanal se encuentran en cada dulce. ༻꧂
+        Pastelería Mil Sabores celebra su 50 aniversario como un referente en la repostería chilena. Famosa por su participación en un récord Guinness en 1995, cuando colaboró en la creación de la torta más grande del mundo, nuestra pastelería busca ofrecer una experiencia dulce y memorable a nuestros clientes, proporcionando tortas y productos de repostería de alta calidad para todas las ocasiones, mientras celebramos nuestras raíces históricas y fomentamos la creatividad en la repostería. Queremos convertirnos en la tienda online líder de productos de repostería en Chile, conocida por nuestra innovación, calidad y el impacto positivo en la comunidad, especialmente en la formación de nuevos talentos en gastronomía.
       </p>
     </div>
     <div class="about-img">
@@ -1070,15 +1486,15 @@
     <div class="cards">
       <article class="loc santiago">
         <h3>Santiago Centro</h3>
-        <p>Av. Libertador 1234<br/>Horario: 09:00 - 20:00</p>
+        <p>Av. Libertador 1234<br/>Horario: 09:00 - 20:00<br/>Seguimiento en tiempo real disponible</p>
       </article>
       <article class="loc providencia">
         <h3>Providencia</h3>
-        <p>Av. Los Sabores 567<br/>Horario: 10:00 - 21:00</p>
+        <p>Av. Los Sabores 567<br/>Horario: 10:00 - 21:00<br/>Seguimiento en tiempo real disponible</p>
       </article>
       <article class="loc vina">
         <h3>Viña del Mar</h3>
-        <p>Calle Dulzura 890<br/>Horario: 09:30 - 20:30</p>
+        <p>Calle Dulzura 890<br/>Horario: 09:30 - 20:30<br/>Seguimiento en tiempo real disponible</p>
       </article>
     </div>
   </section>
@@ -1107,116 +1523,182 @@
       </div>
       <div class="social">
         <a href="https://wa.me/56998765432" target="_blank">WhatsApp</a>
-        <a href="https://instagram.com/tuusuario" target="_blank">Instagram</a>
-        <a href="https://youtube.com/tuusuario" target="_blank">YouTube</a>
-        <a href="mailto:correo@tudominio.com">Gmail</a>
+        <a href="https://instagram.com/pasteleramilsabores" target="_blank">Instagram</a>
+        <a href="https://youtube.com/pasteleramilsabores" target="_blank">YouTube</a>
+        <a href="mailto:contacto@pasteleramilsabores.cl">Gmail</a>
       </div>
     </div>
   </footer>
 
   <script>
-    // Base de datos de productos
+    // Base de datos de productos actualizada con las categorías del documento
     const productos = [
+      // Tortas Cuadradas
       {
         id: 1,
-        nombre: "Torta de Chocolate",
-        descripcion: "Bizcocho húmedo con cacao premium y ganache artesanal.",
-        precio: 25000,
-        imagen: "imagenes/torta.png",
-        categoria: "tortas"
+        codigo: "TC001",
+        nombre: "Torta Cuadrada de Chocolate",
+        descripcion: "Deliciosa torta de chocolate con capas de ganache y un toque de avellanas. Personalizable con mensajes especiales.",
+        precio: 45000,
+        imagen: "imagenes/tortacuadrada.png",
+        categoria: "tortas-cuadradas"
       },
       {
         id: 2,
-        nombre: "Cheesecake Frutos Rojos",
-        descripcion: "Suave mezcla de queso crema con base de galletas y coulis.",
-        precio: 18500,
-        imagen: "imagenes/cheesecake.png",
-        categoria: "cheesecakes"
+        codigo: "TC002",
+        nombre: "Torta Cuadrada de Frutas",
+        descripcion: "Una mezcla de frutas frescas y crema chantilly sobre un suave bizcocho de vainilla, ideal para celebraciones.",
+        precio: 50000,
+        imagen: "imagenes/tortafrutas.png",
+        categoria: "tortas-cuadradas"
       },
+      
+      // Tortas Circulares
       {
         id: 3,
-        nombre: "Pie de Limón",
-        descripcion: "Corteza crocante, relleno ácido-dulce y merengue italiano.",
-        precio: 16000,
-        imagen: "imagenes/pie.png",
-        categoria: "pies"
+        codigo: "TT001",
+        nombre: "Bizcocho de vainilla",
+        descripcion: "Bizcocho de vainilla clásico relleno con crema pastelera y cubierto con un glaseado dulce, perfecto para cualquier ocasión.",
+        precio: 40000,
+        imagen: "imagenes/1.png",
+        categoria: "tortas-circulares"
       },
       {
         id: 4,
-        nombre: "Brownie Especial",
-        descripcion: "Brownie con nueces y chocolate belga.",
-        precio: 12000,
-        imagen: "imagenes/brownie.png",
-        categoria: "brownies"
+        codigo: "TT002",
+        nombre: "Torta Circular de Manjar",
+        descripcion: "Torta tradicional chilena con manjar y nueces, un deleite para los amantes de los sabores dulces y clásicos.",
+        precio: 42000,
+        imagen: "imagenes/tortamanjar.png",
+        categoria: "tortas-circulares"
       },
+      
+      // Postres Individuales
       {
         id: 5,
-        nombre: "Muffin de Vainilla",
-        descripcion: "Esponjoso muffin con chips de chocolate y esencia de vainilla.",
-        precio: 3500,
-        imagen: "imagenes/muffin.png",
-        categoria: "muffins"
+        codigo: "PI001",
+        nombre: "Mousse de Chocolate",
+        descripcion: "Postre individual cremoso y suave, hecho con chocolate de alta calidad, ideal para los amantes del chocolate.",
+        precio: 5000,
+        imagen: "imagenes/mousse.png",
+        categoria: "postres-individuales"
       },
       {
         id: 6,
-        nombre: "Galletas Artesanales",
-        descripcion: "Variedad de galletas crocantes y deliciosas.",
-        precio: 8000,
-        imagen: "imagenes/galletas.png",
-        categoria: "galletas"
+        codigo: "PI002",
+        nombre: "Tiramisú Clásico",
+        descripcion: "Un postre italiano individual con capas de café, mascarpone y cacao, perfecto para finalizar cualquier comida.",
+        precio: 5500,
+        imagen: "imagenes/xd.png",
+        categoria: "postres-individuales"
       },
+      
+      // Productos Sin Azúcar
       {
         id: 7,
-        nombre: "Cupcakes Decorados",
-        descripcion: "Coloridos y deliciosos cupcakes para cualquier ocasión.",
-        precio: 15000,
-        imagen: "imagenes/muffins.png",
-        categoria: "cupcakes"
+        codigo: "PSA001",
+        nombre: "Torta Sin Azúcar de Naranja",
+        descripcion: "Torta ligera y deliciosa, endulzada naturalmente, ideal para quienes buscan opciones más saludables.",
+        precio: 48000,
+        imagen: "imagenes/naranja.png",
+        categoria: "sin-azucar"
       },
       {
         id: 8,
-        nombre: "Tarta Frutal",
-        descripcion: "Tarta fresca con frutas de temporada y crema pastelera.",
-        precio: 22000,
-        imagen: "imagenes/tortafrutal.png",
-        categoria: "tartas"
+        codigo: "PSA002",
+        nombre: "Cheesecake Sin Azúcar",
+        descripcion: "Suave y cremoso, este cheesecake es una opción perfecta para disfrutar sin culpa.",
+        precio: 47000,
+        imagen: "imagenes/12.png",
+        categoria: "sin-azucar"
       },
+      
+      // Pastelería Tradicional
       {
         id: 9,
-        nombre: "Panqueques Dulces",
-        descripcion: "Panqueques esponjosos con miel y frutas frescas.",
-        precio: 9500,
-        imagen: "imagenes/panqueques.png",
-        categoria: "panqueques"
+        codigo: "PT001",
+        nombre: "Galletas de chocolate",
+        descripcion: "Pastelería tradicional rellena de manzanas especiadas, perfecta para un dulce desayuno o merienda.",
+        precio: 3000,
+        imagen: "imagenes/galletas.png",
+        categoria: "tradicional"
       },
       {
         id: 10,
-        nombre: "Croissant de Mantequilla",
-        descripcion: "Crujiente y hojaldrado, perfecto para el desayuno.",
-        precio: 4500,
-        imagen: "imagenes/croissant.png",
-        categoria: "croissants"
+        codigo: "PT002",
+        nombre: "Tarta de Santiago",
+        descripcion: "Tradicional tarta española hecha con almendras, azúcar, y huevos, una delicia para los amantes de los postres clásicos.",
+        precio: 6000,
+        imagen: "imagenes/tart.png",
+        categoria: "tradicional"
       },
+      
+      // Productos Sin Gluten
       {
         id: 11,
-        nombre: "Cheesecake Chocolate",
-        descripcion: "Delicioso cheesecake con cobertura de chocolate oscuro.",
-        precio: 19000,
-        imagen: "imagenes/CheesecakeChocolate.png",
-        categoria: "cheesecakes"
+        codigo: "PG001",
+        nombre: "Brownie Sin Gluten",
+        descripcion: "Rico y denso, este brownie es perfecto para quienes necesitan evitar el gluten sin sacrificar el sabor.",
+        precio: 4000,
+        imagen: "imagenes/brownie.png",
+        categoria: "sin-gluten"
       },
       {
         id: 12,
-        nombre: "Pie de Frutilla",
-        descripcion: "Corteza crocante, relleno de crema y frutillas frescas.",
-        precio: 17500,
-        imagen: "imagenes/piedefrutilla.png",
-        categoria: "pies"
+        codigo: "PG002",
+        nombre: "Pan Sin Gluten",
+        descripcion: "Suave y esponjoso, ideal para sándwiches o para acompañar cualquier comida.",
+        precio: 3500,
+        imagen: "imagenes/pan.png",
+        categoria: "sin-gluten"
+      },
+      
+      // Productos Veganos
+      {
+        id: 13,
+        codigo: "PV001",
+        nombre: "Torta Vegana de Chocolate",
+        descripcion: "Torta de chocolate húmeda y deliciosa, hecha sin productos de origen animal, perfecta para veganos.",
+        precio: 50000,
+        imagen: "imagenes/tortavegana.png",
+        categoria: "vegana"
+      },
+      {
+        id: 14,
+        codigo: "PV002",
+        nombre: "Galletas Veganas de Avena",
+        descripcion: "Crujientes y sabrosas, estas galletas son una excelente opción para un snack saludable y vegano.",
+        precio: 4500,
+        imagen: "imagenes/galletasavena.png",
+        categoria: "vegana"
+      },
+      
+      // Tortas Especiales
+      {
+        id: 15,
+        codigo: "TE001",
+        nombre: "Torta Especial de Cumpleaños",
+        descripcion: "Diseñada especialmente para celebraciones, personalizable con decoraciones y mensajes únicos.",
+        precio: 55000,
+        imagen: "imagenes/tortacumple.png",
+        categoria: "especiales"
+      },
+      {
+        id: 16,
+        codigo: "TE002",
+        nombre: "Torta Especial de Boda",
+        descripcion: "Elegante y deliciosa, esta torta está diseñada para ser el centro de atención en cualquier boda.",
+        precio: 60000,
+        imagen: "imagenes/boda.png",
+        categoria: "especiales"
       }
     ];
 
-    // Carrito de compras
-    let carrito = [];
+    // Sistema de usuarios y autenticación
+    let currentUser = null;
+    let users = JSON.parse(localStorage.getItem('users')) || [];
+    let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+    let currentProduct = null;
 
     // Elementos DOM
     const searchInput = document.getElementById('searchInput');
@@ -1229,6 +1711,9 @@
     const carritoItemCount = document.getElementById('carritoItemCount');
     const carritoTotal = document.getElementById('carritoTotal');
     const toast = document.getElementById('toast');
+    const authModal = document.getElementById('authModal');
+    const personalizeModal = document.getElementById('personalizeModal');
+    const discountBanner = document.getElementById('discountBanner');
 
     // Inicializar la página
     document.addEventListener('DOMContentLoaded', function() {
@@ -1236,8 +1721,275 @@
       actualizarCarrito();
       configurarBusqueda();
       configurarSliderInfinito();
+      configurarFiltros();
+      configurarAuth();
+      verificarUsuarioActual();
       document.getElementById('year').textContent = new Date().getFullYear();
     });
+
+    // Sistema de autenticación
+    function abrirAuthModal() {
+      authModal.classList.add('active');
+    }
+
+    function cerrarAuthModal() {
+      authModal.classList.remove('active');
+    }
+
+    function cambiarTab(tab) {
+      // Cambiar tabs activos
+      document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
+      
+      document.querySelector(`[onclick="cambiarTab('${tab}')"]`).classList.add('active');
+      document.getElementById(tab + 'Form').classList.add('active');
+    }
+
+    function configurarAuth() {
+      // Formulario de registro
+      document.getElementById('registerForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const name = document.getElementById('registerName').value;
+        const email = document.getElementById('registerEmail').value;
+        const age = parseInt(document.getElementById('registerAge').value);
+        const password = document.getElementById('registerPassword').value;
+        const promoCode = document.getElementById('promoCode').value;
+        
+        // Verificar si el usuario ya existe
+        if (users.find(u => u.email === email)) {
+          mostrarToast('Este email ya está registrado', 'error');
+          return;
+        }
+        
+        // Crear nuevo usuario
+        const newUser = {
+          id: Date.now(),
+          name,
+          email,
+          age,
+          password,
+          promoCode,
+          discounts: [],
+          freeBirthday: false,
+          registrationDate: new Date().toISOString()
+        };
+        
+        // Aplicar descuentos según condiciones
+        if (age >= 50) {
+          newUser.discounts.push({
+            type: 'age',
+            value: 50,
+            description: 'Descuento del 50% por ser mayor de 50 años'
+          });
+        }
+        
+        if (promoCode === 'FELICES50') {
+          newUser.discounts.push({
+            type: 'promo',
+            value: 10,
+            description: 'Descuento del 10% de por vida con código FELICES50'
+          });
+        }
+        
+        if (email.includes('@duocuc.cl')) {
+          newUser.freeBirthday = true;
+        }
+        
+        users.push(newUser);
+        localStorage.setItem('users', JSON.stringify(users));
+        currentUser = newUser;
+        
+        mostrarToast('¡Registro exitoso! Bienvenido a Pastelería Mil Sabores');
+        cerrarAuthModal();
+        actualizarInterfazUsuario();
+      });
+      
+      // Formulario de login
+      document.getElementById('loginForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const email = document.getElementById('loginEmail').value;
+        const password = document.getElementById('loginPassword').value;
+        
+        const user = users.find(u => u.email === email && u.password === password);
+        
+        if (user) {
+          currentUser = user;
+          localStorage.setItem('currentUser', JSON.stringify(user));
+          mostrarToast(`¡Bienvenido de vuelta, ${user.name}!`);
+          cerrarAuthModal();
+          actualizarInterfazUsuario();
+        } else {
+          mostrarToast('Email o contraseña incorrectos', 'error');
+        }
+      });
+      
+      // Mostrar descuento de edad en tiempo real
+      document.getElementById('registerAge').addEventListener('input', function() {
+        const age = parseInt(this.value);
+        const ageDiscount = document.getElementById('ageDiscount');
+        
+        if (age >= 50) {
+          ageDiscount.style.display = 'block';
+        } else {
+          ageDiscount.style.display = 'none';
+        }
+      });
+    }
+
+    function verificarUsuarioActual() {
+      const savedUser = localStorage.getItem('currentUser');
+      if (savedUser) {
+        currentUser = JSON.parse(savedUser);
+        actualizarInterfazUsuario();
+      }
+    }
+
+    function actualizarInterfazUsuario() {
+      const perfilBtn = document.querySelector('.perfil');
+      
+      if (currentUser) {
+        perfilBtn.textContent = currentUser.name;
+        perfilBtn.onclick = () => window.location.href = 'perfil.html';
+        
+        // Mostrar banner de descuentos si aplica
+        mostrarBannerDescuentos();
+      } else {
+        perfilBtn.textContent = 'Perfil';
+        perfilBtn.onclick = abrirAuthModal;
+      }
+    }
+
+    function mostrarBannerDescuentos() {
+      if (!currentUser || currentUser.discounts.length === 0) return;
+      
+      let mensaje = '🎉 ';
+      currentUser.discounts.forEach(discount => {
+        mensaje += discount.description + ' ';
+      });
+      
+      if (currentUser.freeBirthday) {
+        mensaje += '🎂 Torta gratis en tu cumpleaños por ser estudiante Duoc! ';
+      }
+      
+      document.getElementById('discountMessage').textContent = mensaje;
+      discountBanner.classList.add('active');
+    }
+
+    // Sistema de personalización de productos
+    function abrirPersonalizeModal(productoId = null) {
+      if (productoId) {
+        currentProduct = productos.find(p => p.id === productoId);
+      } else {
+        currentProduct = productos[0]; // Producto por defecto
+      }
+      
+      personalizeModal.classList.add('active');
+      actualizarPrecioPersonalizacion();
+    }
+
+    function cerrarPersonalizeModal() {
+      personalizeModal.classList.remove('active');
+      currentProduct = null;
+    }
+
+    function actualizarPrecioPersonalizacion() {
+      if (!currentProduct) return;
+      
+      let precioBase = currentProduct.precio;
+      let precioExtra = 0;
+      
+      const sizeSelected = document.querySelector('.size-option.selected');
+      if (sizeSelected) {
+        precioExtra = parseInt(sizeSelected.dataset.price);
+      }
+      
+      let precioFinal = precioBase + precioExtra;
+      
+      // Aplicar descuentos del usuario
+      if (currentUser) {
+        currentUser.discounts.forEach(discount => {
+          precioFinal -= (precioFinal * discount.value / 100);
+        });
+      }
+      
+      document.getElementById('finalPrice').textContent = `${Math.round(precioFinal).toLocaleString('es-CL')}`;
+    }
+
+    function agregarProductoPersonalizado() {
+      if (!currentProduct) return;
+      
+      const shape = document.querySelector('.shape-option.selected')?.dataset.shape || 'circular';
+      const size = document.querySelector('.size-option.selected')?.dataset.size || 'pequeño';
+      const message = document.getElementById('customMessage').value;
+      const deliveryDate = document.getElementById('deliveryDate').value;
+      const precioExtra = parseInt(document.querySelector('.size-option.selected')?.dataset.price || 0);
+      
+      let precioFinal = currentProduct.precio + precioExtra;
+      
+      // Aplicar descuentos del usuario
+      if (currentUser) {
+        currentUser.discounts.forEach(discount => {
+          precioFinal -= (precioFinal * discount.value / 100);
+        });
+      }
+      
+      const productoPersonalizado = {
+        ...currentProduct,
+        id: Date.now(), // ID único para el producto personalizado
+        precio: Math.round(precioFinal),
+        personalizacion: {
+          shape,
+          size,
+          message,
+          deliveryDate
+        },
+        nombre: `${currentProduct.nombre} - ${shape.charAt(0).toUpperCase() + shape.slice(1)} ${size.charAt(0).toUpperCase() + size.slice(1)}`
+      };
+      
+      agregarAlCarrito(productoPersonalizado.id, productoPersonalizado);
+      cerrarPersonalizeModal();
+    }
+
+    // Configurar filtros de productos
+    function configurarFiltros() {
+      const filterBtns = document.querySelectorAll('.filter-btn');
+      
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+          // Remover clase active de todos los botones
+          filterBtns.forEach(b => b.classList.remove('active'));
+          // Agregar clase active al botón clickeado
+          this.classList.add('active');
+          
+          const categoria = this.dataset.category;
+          
+          if (categoria === 'todos') {
+            mostrarProductos();
+          } else {
+            const productosFiltrados = productos.filter(p => p.categoria === categoria);
+            mostrarProductos(productosFiltrados);
+          }
+        });
+      });
+      
+      // Configurar opciones de personalización
+      document.querySelectorAll('.size-option').forEach(option => {
+        option.addEventListener('click', function() {
+          document.querySelectorAll('.size-option').forEach(o => o.classList.remove('selected'));
+          this.classList.add('selected');
+          actualizarPrecioPersonalizacion();
+        });
+      });
+      
+      document.querySelectorAll('.shape-option').forEach(option => {
+        option.addEventListener('click', function() {
+          document.querySelectorAll('.shape-option').forEach(o => o.classList.remove('selected'));
+          this.classList.add('selected');
+        });
+      });
+    }
 
     // Configurar slider infinito
     function configurarSliderInfinito() {
@@ -1254,25 +2006,44 @@
       }
     }
 
-    // Mostrar todos los productos
+    // Mostrar productos con precios ajustados según usuario
     function mostrarProductos(productosAMostrar = productos) {
       productosContainer.innerHTML = '';
       productosAMostrar.forEach(producto => {
+        let precioMostrar = producto.precio;
+        
+        // Aplicar descuentos del usuario actual
+        if (currentUser) {
+          currentUser.discounts.forEach(discount => {
+            precioMostrar -= (precioMostrar * discount.value / 100);
+          });
+        }
+        
         const productoHTML = `
           <article class="card" data-id="${producto.id}">
             <img src="${producto.imagen}" alt="${producto.nombre}">
             <div class="card-body">
               <h3>${producto.nombre}</h3>
               <p>${producto.descripcion}</p>
-              <div class="product-price">${producto.precio.toLocaleString('es-CL')}</div>
-              <button class="add-to-cart" onclick="agregarAlCarrito(${producto.id})">
-                Agregar al Carrito
+              <div class="product-price">
+                ${currentUser && currentUser.discounts.length > 0 ? 
+                  `<span style="text-decoration: line-through; color: #999;">${producto.precio.toLocaleString('es-CL')}</span> ` : ''
+                }
+                ${Math.round(precioMostrar).toLocaleString('es-CL')}
+              </div>
+              <button class="add-to-cart" onclick="mostrarOpcionesProducto(${producto.id})">
+                Personalizar y Agregar
               </button>
             </div>
           </article>
         `;
         productosContainer.innerHTML += productoHTML;
       });
+    }
+
+    function mostrarOpcionesProducto(id) {
+      currentProduct = productos.find(p => p.id === id);
+      abrirPersonalizeModal(id);
     }
 
     // Configurar búsqueda
@@ -1290,7 +2061,8 @@
         const resultados = productos.filter(producto => 
           producto.nombre.toLowerCase().includes(query) ||
           producto.descripcion.toLowerCase().includes(query) ||
-          producto.categoria.toLowerCase().includes(query)
+          producto.categoria.toLowerCase().includes(query) ||
+          producto.codigo.toLowerCase().includes(query)
         );
 
         mostrarResultadosBusqueda(resultados);
@@ -1309,16 +2081,27 @@
       if (resultados.length === 0) {
         searchResults.innerHTML = '<div class="search-result-item"><p>No se encontraron productos</p></div>';
       } else {
-        searchResults.innerHTML = resultados.map(producto => `
-          <div class="search-result-item" onclick="agregarAlCarrito(${producto.id})">
-            <img src="${producto.imagen}" alt="${producto.nombre}" class="search-result-img">
-            <div class="search-result-info">
-              <h4>${producto.nombre}</h4>
-              <p>${producto.descripcion}</p>
-              <div class="search-result-price">${producto.precio.toLocaleString('es-CL')}</div>
+        searchResults.innerHTML = resultados.map(producto => {
+          let precioMostrar = producto.precio;
+          
+          // Aplicar descuentos del usuario actual
+          if (currentUser) {
+            currentUser.discounts.forEach(discount => {
+              precioMostrar -= (precioMostrar * discount.value / 100);
+            });
+          }
+          
+          return `
+            <div class="search-result-item" onclick="mostrarOpcionesProducto(${producto.id})">
+              <img src="${producto.imagen}" alt="${producto.nombre}" class="search-result-img">
+              <div class="search-result-info">
+                <h4>${producto.nombre}</h4>
+                <p>${producto.descripcion}</p>
+                <div class="search-result-price">${Math.round(precioMostrar).toLocaleString('es-CL')}</div>
+              </div>
             </div>
-          </div>
-        `).join('');
+          `;
+        }).join('');
       }
       
       searchResults.style.display = 'block';
@@ -1329,12 +2112,30 @@
       searchInput.focus();
     }
 
-    // Agregar producto al carrito
-    function agregarAlCarrito(id) {
-      const producto = productos.find(p => p.id === id);
-      if (!producto) return;
+    // Agregar producto al carrito (mejorado para productos personalizados)
+    function agregarAlCarrito(id, productoPersonalizado = null) {
+      let producto;
+      
+      if (productoPersonalizado) {
+        producto = productoPersonalizado;
+      } else {
+        producto = productos.find(p => p.id === id);
+        if (!producto) return;
+        
+        // Aplicar descuentos del usuario actual
+        if (currentUser) {
+          let precioConDescuento = producto.precio;
+          currentUser.discounts.forEach(discount => {
+            precioConDescuento -= (precioConDescuento * discount.value / 100);
+          });
+          producto = {...producto, precio: Math.round(precioConDescuento)};
+        }
+      }
 
-      const itemExistente = carrito.find(item => item.id === id);
+      const itemExistente = carrito.find(item => 
+        item.id === id && 
+        JSON.stringify(item.personalizacion || {}) === JSON.stringify(producto.personalizacion || {})
+      );
       
       if (itemExistente) {
         itemExistente.cantidad += 1;
@@ -1346,6 +2147,7 @@
       }
 
       actualizarCarrito();
+      localStorage.setItem('carrito', JSON.stringify(carrito));
       mostrarToast(`${producto.nombre} agregado al carrito`);
       searchResults.style.display = 'none';
       searchInput.value = '';
@@ -1374,12 +2176,19 @@
             <img src="${item.imagen}" alt="${item.nombre}">
             <div class="carrito-item-info">
               <h4>${item.nombre}</h4>
+              ${item.personalizacion ? `
+                <p style="font-size: 0.8rem; color: #666;">
+                  ${item.personalizacion.shape} - ${item.personalizacion.size}
+                  ${item.personalizacion.message ? `<br>"${item.personalizacion.message}"` : ''}
+                  ${item.personalizacion.deliveryDate ? `<br>Entrega: ${item.personalizacion.deliveryDate}` : ''}
+                </p>
+              ` : ''}
               <div class="carrito-item-price">${item.precio.toLocaleString('es-CL')}</div>
               <div class="quantity-controls">
-                <button class="quantity-btn" onclick="cambiarCantidad(${item.id}, -1)">-</button>
+                <button class="quantity-btn" onclick="cambiarCantidad(${item.id}, -1, '${JSON.stringify(item.personalizacion || {})}')">-</button>
                 <span class="quantity">${item.cantidad}</span>
-                <button class="quantity-btn" onclick="cambiarCantidad(${item.id}, 1)">+</button>
-                <button class="remove-btn" onclick="eliminarDelCarrito(${item.id})">Eliminar</button>
+                <button class="quantity-btn" onclick="cambiarCantidad(${item.id}, 1, '${JSON.stringify(item.personalizacion || {})}')">+</button>
+                <button class="remove-btn" onclick="eliminarDelCarrito(${item.id}, '${JSON.stringify(item.personalizacion || {})}')">Eliminar</button>
               </div>
             </div>
           </div>
@@ -1388,23 +2197,33 @@
     }
 
     // Cambiar cantidad de producto
-    function cambiarCantidad(id, cambio) {
-      const item = carrito.find(item => item.id === id);
+    function cambiarCantidad(id, cambio, personalizacionStr) {
+      const personalizacion = JSON.parse(personalizacionStr);
+      const item = carrito.find(item => 
+        item.id === id && 
+        JSON.stringify(item.personalizacion || {}) === JSON.stringify(personalizacion)
+      );
+      
       if (!item) return;
 
       item.cantidad += cambio;
 
       if (item.cantidad <= 0) {
-        eliminarDelCarrito(id);
+        eliminarDelCarrito(id, personalizacionStr);
       } else {
         actualizarCarrito();
+        localStorage.setItem('carrito', JSON.stringify(carrito));
       }
     }
 
     // Eliminar producto del carrito
-    function eliminarDelCarrito(id) {
-      carrito = carrito.filter(item => item.id !== id);
+    function eliminarDelCarrito(id, personalizacionStr) {
+      const personalizacion = JSON.parse(personalizacionStr);
+      carrito = carrito.filter(item => 
+        !(item.id === id && JSON.stringify(item.personalizacion || {}) === JSON.stringify(personalizacion))
+      );
       actualizarCarrito();
+      localStorage.setItem('carrito', JSON.stringify(carrito));
     }
 
     // Toggle carrito
@@ -1422,15 +2241,46 @@
     // Proceder a la compra
     function procederCompra() {
       if (carrito.length === 0) {
-        mostrarToast('Tu carrito está vacío');
+        mostrarToast('Tu carrito está vacío', 'error');
+        return;
+      }
+      
+      if (!currentUser) {
+        mostrarToast('Debes iniciar sesión para proceder con la compra', 'error');
+        cerrarCarrito();
+        abrirAuthModal();
         return;
       }
       
       const total = carrito.reduce((sum, item) => sum + (item.precio * item.cantidad), 0);
-      const mensaje = `¡Gracias por tu compra de ${total.toLocaleString('es-CL')}! En breve nos contactaremos contigo.`;
       
-      mostrarToast(mensaje, 'success', 4000);
+      // Simular procesamiento de pedido
+      const pedido = {
+        id: Date.now(),
+        usuario: currentUser.id,
+        items: [...carrito],
+        total: total,
+        fecha: new Date().toISOString(),
+        estado: 'En preparación'
+      };
+      
+      // Guardar pedido
+      let pedidos = JSON.parse(localStorage.getItem('pedidos')) || [];
+      pedidos.push(pedido);
+      localStorage.setItem('pedidos', JSON.stringify(pedidos));
+      
+      // Verificar si es cumpleaños del usuario para torta gratis (simplificado)
+      let mensaje = `¡Gracias por tu compra de ${total.toLocaleString('es-CL')}! Tu pedido #${pedido.id} está en preparación. `;
+      
+      if (currentUser.freeBirthday && carrito.some(item => item.categoria.includes('torta'))) {
+        mensaje += '🎂 ¡Como estudiante Duoc, tu primera torta es gratis! ';
+      }
+      
+      mensaje += 'Te enviaremos notificaciones del estado de tu pedido y tracking de envío.';
+      
+      mostrarToast(mensaje, 'success', 6000);
       carrito = [];
+      localStorage.setItem('carrito', JSON.stringify(carrito));
       actualizarCarrito();
       cerrarCarrito();
     }
@@ -1518,6 +2368,21 @@
       el.style.transform = 'translateY(50px)';
       el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
       observer.observe(el);
+    });
+
+    // Cerrar modales con Escape
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        if (authModal.classList.contains('active')) {
+          cerrarAuthModal();
+        }
+        if (personalizeModal.classList.contains('active')) {
+          cerrarPersonalizeModal();
+        }
+        if (carritoSidebar.classList.contains('active')) {
+          cerrarCarrito();
+        }
+      }
     });
   </script>
 </body>
