@@ -1,6 +1,77 @@
 // Año dinámico en footer
 document.getElementById('year').textContent = new Date().getFullYear();
 
+//ANIMACIONES 
+document.addEventListener("DOMContentLoaded", () => {
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+// IntersectionObserver: detecta cuando un elemento entra al viewport
+// (pantalla visible) para ejecutar animaciones o acciones al hacer scroll.
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+        //la animación sea solo 1 vez:
+        observer.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+
+  // Aplicar animaciones a elementos seleccionados
+  document.querySelectorAll('.card, .section-title, .about-text, .about-img')
+    .forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(50px)';
+      el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      observer.observe(el);
+    });
+});
+
+// Cuando el DOM esté listo
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll('.card, .section-title, .about-text, .about-img').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(50px)';
+    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    observer.observe(el);
+  });
+});
+// Efectos hover en tarjetas y lazy loading de imágenes
+document.addEventListener('DOMContentLoaded', () => {
+
+  // Hover en .card
+  document.addEventListener('mouseover', (e) => {
+    if (e.target.classList.contains('card')) {
+      e.target.style.transform = 'translateY(-10px) scale(1.02)';
+    }
+  });
+
+  document.addEventListener('mouseout', (e) => {
+    if (e.target.classList.contains('card')) {
+      e.target.style.transform = 'translateY(0) scale(1)';
+    }
+  });
+
+  // Lazy loading de imágenes usando IntersectionObserver
+  const images = document.querySelectorAll('img');
+  const imageObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const img = entry.target;
+        img.classList.add('loaded'); // puedes definir animación CSS en .loaded
+        observer.unobserve(img);     // deja de observar la imagen ya cargada
+      }
+    });
+  });
+
+  images.forEach(img => imageObserver.observe(img));
+});
+//ANIMACIONES
+
+
 
 // Cerrar sesión
 const logoutBtn = document.getElementById('logout-btn');
