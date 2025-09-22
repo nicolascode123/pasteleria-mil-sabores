@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perfil - Pastelería Mil Sabores</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="static/styleperfil.css">
+  
+</head>
+<body>
+  <!-- SECCIÓN PERFIL -->
+  <div id="profile-section" class="profile-container">
+    <div class="profile-header">
+      <img id="profile-avatar" class="profile-avatar" src="imagenes/avatar.png" alt="Avatar del usuario" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'120\' height=\'120\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'%23d2691e\' stroke-width=\'2\' stroke-linecap=\'round\' stroke-linejoin=\'round\'%3E%3Cpath d=\'M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2\'%3E%3C/path%3E%3Ccircle cx=\'12\' cy=\'7\' r=\'4\'%3E%3C/circle%3E%3C/svg%3E'">
+      <h2 class="profile-name" id="profile-name">Usuario</h2>
+      <span class="profile-type" id="profile-type">Cliente</span>
+    </div>
+
+    <div class="profile-grid">
+      <!-- Información Personal -->
+      <div class="profile-card">
+        <h3>Información Personal</h3>
+        <div class="info-item">
+          <span class="info-label">Edad:</span>
+          <span class="info-value" id="profile-age">-</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Email:</span>
+          <span class="info-value" id="profile-email">-</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Teléfono:</span>
+          <span class="info-value" id="profile-phone">-</span>
+        </div>
+      </div>
+
+      <!-- Descuentos -->
+      <div class="profile-card">
+        <h3>Descuentos Activos</h3>
+        <ul class="discount-list" id="profile-discounts">
+          <!-- Descuentos se cargan dinámicamente -->
+        </ul>
+      </div>
+    </div>
+
+    <!-- Historial de Compras -->
+    <div class="profile-card">
+      <h3>Historial de Compras</h3>
+      <table class="history-table">
+        <thead>
+          <tr>
+            <th>Producto</th>
+            <th>Fecha</th>
+            <th>Monto</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody id="purchase-history">
+          <!-- Historial se carga dinámicamente -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Acciones Rápidas -->
+    <div class="quick-actions">
+      <button class="action-btn" onclick="editarPerfil()"> Editar Perfil</button>
+      <button class="action-btn" onclick="verCarrito()"> Ver Carrito</button>
+      <button class="action-btn" onclick="verPedidos()"> Mis Pedidos</button>
+      <button class="action-btn" onclick="compartirProducto()"> Compartir</button>
+    </div>
+
+    <button class="logout-btn" onclick="cerrarSesion()">Cerrar Sesión</button>
+  </div>
+
+  <script src="static/perfil.js"></script>
+
+
+  
+</body>
+</html>

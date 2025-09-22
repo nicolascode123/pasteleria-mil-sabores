@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+ <meta charset="utf-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1" />
+ <title>Administración - Pastelería Mil Sabores</title>
+ <!-- Fuentes (mismas que el resto del sitio) -->
+ <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+ <!-- Reutilizamos los estilos de perfil para mantener la misma paleta/jerarquía -->
+  <link rel="stylesheet" href="static/styleadmin.css">
+</head>
+<script src="static/admin.js"></script>
+
+<body>
+
+
+
+ <!-- Contenedor principal -->
+
+ <main class="admin-wrapper">
+
+  <!-- SIDEBAR: avatar + navegación de admin -->
+
+  <aside class="admin-sidebar">
+
+   <div style="text-align:center; margin-bottom:1rem;">
+
+    <img id="admin-avatar" src="imagenes/avatar.png" alt="avatar" style="width:120px; height:120px; object-fit:cover; border-radius:50%; display:block; margin:0 auto 0.75rem; box-shadow:0 8px 20px rgba(0,0,0,0.08);">
+
+    <h3 id="admin-name" style="font-family:'Playfair Display', serif; color:#7a4b2d; margin-bottom:0.25rem;">Administrador</h3>
+
+    <div class="profile-type" style="display:inline-block; padding:0.25rem 0.6rem; border-radius:8px; font-size:0.85rem;">Administrador</div>
+
+   </div>
+
+   <div style="margin-top:1rem;">
+    <button id="logout-btn" class="btn btn-secondary" onclick="location.href='index.html'">Cerrar sesión</button>
+   </div>
+
+
+
+   <hr style="margin:1rem 0; border:none; height:1px; background:rgba(0,0,0,0.04);">
+
+
+
+   <nav>
+    <ul style="list-style:none; padding-left:0; display:flex; flex-direction:column; gap:0.5rem;">
+     <li><a href="#resumen" class="btn-secondary" style="display:block; padding:0.6rem; border-radius:10px;">Resumen</a></li>
+     <li><a href="#productos" class="btn-secondary" style="display:block; padding:0.6rem; border-radius:10px;">Productos</a></li>
+     <li><a href="#pedidos" class="btn-secondary" style="display:block; padding:0.6rem; border-radius:10px;">Pedidos</a></li>
+     <li><a href="#usuarios" class="btn-secondary" style="display:block; padding:0.6rem; border-radius:10px;">Usuarios</a></li>
+     <li><a href="#config" class="btn-secondary" style="display:block; padding:0.6rem; border-radius:10px;">Configuración</a></li>
+    </ul>
+   </nav>
+
+  </aside>
+  <!-- Pantalla blanca fondo -->
+<section class="admin-main"></section>
+
+ </main>
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autenticación</title>
+    <script defer src="static/app.js"></script>
+    <link rel="stylesheet" href="static/styleauth.css">
+    <style>
+      .tab { display: none; }
+      .tab.active { display: block; }
+      .tabs button { margin-right: 0.5rem; }
+      .notificacion {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: #2ecc71;
+        color: #fff;
+        padding: 10px 14px;
+        border-radius: 8px;
+        font-weight: 600;
+        display: none;
+        z-index: 9999;
+      }
+    </style>
+</head>
+<body>
+
+  <div class="auth-container">
+    <!-- Botones de pestañas -->
+    <div class="tabs">
+      <button onclick="mostrarTab('login')" class="active">Iniciar Sesión</button>
+      <button onclick="mostrarTab('register')">Registrar</button>
+      <button onclick="mostrarTab('admin')">Admin</button>
+    </div>
+
+    <!-- Formulario de login -->
+    <div id="login" class="tab active">
+      <h3>Iniciar Sesión</h3>
+      <input type="text" id="login-username" placeholder="Usuario" required>
+      <input type="password" id="login-password" placeholder="Contraseña" required>
+      <button class="action-btn" onclick="login()">Entrar</button>
+    </div>
+
+    <!-- Formulario de registro -->
+    <div id="register" class="tab">
+      <h3>Registro</h3>
+      <input type="text" id="reg-nombre" placeholder="Nombre completo" required>
+      <input type="text" id="reg-usuario" placeholder="Usuario" required>
+      <input type="password" id="reg-password" placeholder="Contraseña" required>
+      <input type="number" id="reg-edad" placeholder="Edad" required>
+      <input type="text" id="reg-codigo" placeholder="Código promocional (opcional)">
+      <input type="email" id="reg-email" placeholder="Correo electrónico" required>
+      <input type="tel" id="reg-telefono" placeholder="Teléfono" required>
+      <input type="text" id="reg-direccion" placeholder="Dirección completa" required>
+      <button class="action-btn" onclick="register()">Crear cuenta</button>
+    </div>
+
+    <!-- Formulario de admin -->
+    <div id="admin" class="tab">
+      <h3>Administrador</h3>
+      <input type="text" id="admin-username" placeholder="Usuario admin" required>
+      <input type="password" id="admin-password" placeholder="Contraseña" required>
+      <button class="action-btn" onclick="adminLogin()">Entrar como Admin</button>
+    </div>
+
+  </div>
+
+  <!-- Contenedor de notificaciones -->
+  <div id="notificacion" class="notificacion"></div>
+
+  <script>
+    // ==============================
+    //   SWITCH DE TABS
+    // ==============================
+    function mostrarTab(tabId){
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.getElementById(tabId).classList.add('active');
+      document.querySelectorAll('.tabs button').forEach(b => b.classList.remove('active'));
+      document.querySelector(`.tabs button[onclick="mostrarTab('${tabId}')"]`)?.classList.add('active');
+    }
+
+    // ==============================
+    //   TOAST / NOTIFICACIONES
+    // ==============================
+    function showNotification(msg, type='success', time=2200){
+      const cont = document.getElementById('notificacion');
+      cont.textContent = msg;
+      cont.style.background = (type==='error') ? '#e74c3c' : '#2ecc71';
+      cont.style.display = 'block';
+      setTimeout(()=> cont.style.display='none', time);
+    }
+
+    // ==============================
+    //   LOGIN / REGISTRO / ADMIN
+    // ==============================
+    function login(){
+      const username = document.getElementById('login-username').value.trim();
+      const password = document.getElementById('login-password').value;
+      const users = JSON.parse(localStorage.getItem('users')||'[]');
+      const u = users.find(u=>u.username === username && u.password === password);
+      if(u){
+        sessionStorage.setItem('currentUser', JSON.stringify(u));
+        showNotification('✅ Bienvenido '+u.name);
+        setTimeout(()=> location.href='perfil.html',500);
+      } else {
+        showNotification('Usuario o contraseña incorrectos','error');
+      }
+    }
+
+    function register(){
+      const nombre = document.getElementById('reg-nombre').value.trim();
+      const usuario = document.getElementById('reg-usuario').value.trim();
+      const password = document.getElementById('reg-password').value;
+      const edad = parseInt(document.getElementById('reg-edad').value);
+      const email = document.getElementById('reg-email').value.trim();
+      const telefono = document.getElementById('reg-telefono').value.trim();
+      const direccion = document.getElementById('reg-direccion').value.trim();
+
+      if(!nombre || !usuario || !password || !edad || !email) return showNotification('Completa todos los campos','error');
+
+      let users = JSON.parse(localStorage.getItem('users')||'[]');
+      if(users.find(u=>u.username===usuario)) return showNotification('Usuario ya existe','error');
+
+      const id = users.length ? Math.max(...users.map(u=>u.id))+1 : 1;
+      const newUser = {id, name:nombre, username:usuario, password, edad, email, telefono, direccion};
+      users.push(newUser);
+      localStorage.setItem('users', JSON.stringify(users));
+      sessionStorage.setItem('currentUser', JSON.stringify(newUser));
+      showNotification('✅ Cuenta creada con éxito');
+      setTimeout(()=> location.href='perfil.html',500);
+    }
+
+    function adminLogin(){
+      const username = document.getElementById('admin-username').value.trim();
+      const password = document.getElementById('admin-password').value;
+      // Ejemplo simple: usuario admin fijo
+      if(username==='admin' && password==='admin123'){
+        sessionStorage.setItem('isAdmin','true');
+        sessionStorage.setItem('adminUser', JSON.stringify({name:'Administrador', username:'admin'}));
+        showNotification('✅ Bienvenido admin');
+        setTimeout(()=> location.href='admin.html',500);
+      } else {
+        showNotification('Usuario o contraseña de admin incorrectos','error');
+      }
+    }
+  </script>
+
+</body>
+</html>
