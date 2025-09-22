@@ -1,0 +1,348 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(135deg, #fff7f0 0%, #f4e8d8 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #2d2d2d;
+    }
+
+    /* ==============================
+       CONTENEDOR PRINCIPAL LOGIN/REGISTRO
+    ============================== */
+    .auth-container {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 25px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+      padding: 3rem;
+      width: 100%;
+      max-width: 450px;
+      transition: all 0.3s ease;
+    }
+
+    .auth-container:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.15);
+    }
+
+    .auth-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .auth-header h2 {
+      font-family: 'Playfair Display', serif;
+      color: #7a4b2d;
+      font-size: 2.2rem;
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+    }
+
+    .auth-header p {
+      color: #6b6b6b;
+      font-size: 1rem;
+    }
+
+    /* ==============================
+       FORMULARIOS
+    ============================== */
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: #7a4b2d;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 1rem 1.5rem;
+      border: 2px solid #e8e8e8;
+      border-radius: 15px;
+      font-size: 1rem;
+      outline: none;
+      transition: all 0.3s ease;
+      background: #fafafa;
+    }
+
+    .form-group input:focus {
+      border-color: #d2691e;
+      background: #fff;
+      box-shadow: 0 0 0 3px rgba(210, 105, 30, 0.1);
+    }
+
+    .form-group input::placeholder {
+      color: #aaa;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 1rem;
+      border: none;
+      border-radius: 15px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #d2691e 0%, #b25014 100%);
+      color: white;
+      margin-bottom: 1rem;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(210, 105, 30, 0.3);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: #7a4b2d;
+      border: 2px solid #7a4b2d;
+    }
+
+    .btn-secondary:hover {
+      background: #7a4b2d;
+      color: white;
+    }
+
+    .divider {
+      text-align: center;
+      margin: 1.5rem 0;
+      position: relative;
+    }
+
+    .divider::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: #e8e8e8;
+    }
+
+    .divider span {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 0 1rem;
+      color: #aaa;
+      font-size: 0.9rem;
+    }
+
+    /* ==============================
+       PERFIL USUARIO
+    ============================== */
+    .profile-container {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 25px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+      padding: 3rem;
+      width: 100%;
+      max-width: 900px;
+      margin: 2rem auto;
+    }
+
+    .profile-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .profile-avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid #d2691e;
+      margin: 0 auto 1rem;
+      display: block;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .profile-name {
+      font-family: 'Playfair Display', serif;
+      color: #7a4b2d;
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .profile-type {
+      background: linear-gradient(135deg, #d2691e 0%, #b25014 100%);
+      color: white;
+      padding: 0.3rem 1rem;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      display: inline-block;
+    }
+
+    .profile-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .profile-card {
+      background: #fff7f0;
+      padding: 1.5rem;
+      border-radius: 15px;
+      border-left: 4px solid #d2691e;
+    }
+
+    .profile-card h3 {
+      font-family: 'Playfair Display', serif;
+      color: #7a4b2d;
+      margin-bottom: 1rem;
+      font-size: 1.3rem;
+    }
+
+    .info-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .info-item:last-child {
+      border-bottom: none;
+    }
+
+    .info-label {
+      font-weight: 600;
+      color: #7a4b2d;
+    }
+
+    .info-value {
+      color: #555;
+    }
+
+    /* Tabla historial */
+    .history-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+
+    .history-table th,
+    .history-table td {
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .history-table th {
+      background: #f8f8f8;
+      font-weight: 600;
+      color: #7a4b2d;
+    }
+
+    .status-delivered {
+      background: #4caf50;
+      color: white;
+      padding: 0.3rem 0.8rem;
+      border-radius: 15px;
+      font-size: 0.8rem;
+    }
+
+    .status-preparing {
+      background: #ff9800;
+      color: white;
+      padding: 0.3rem 0.8rem;
+      border-radius: 15px;
+      font-size: 0.8rem;
+    }
+
+    /* Lista descuentos */
+    .discount-list {
+      list-style: none;
+    }
+
+    .discount-list li {
+      background: #e8f5e8;
+      padding: 0.8rem;
+      margin-bottom: 0.5rem;
+      border-radius: 10px;
+      border-left: 3px solid #4caf50;
+    }
+
+    /* Acciones rápidas */
+    .quick-actions {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .action-btn {
+      background: linear-gradient(135deg, #d2691e 0%, #b25014 100%);
+      color: white;
+      padding: 1rem;
+      border: none;
+      border-radius: 15px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .action-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(210, 105, 30, 0.3);
+    }
+
+    .logout-btn {
+      background: #dc3545;
+      color: white;
+      padding: 0.8rem 2rem;
+      border: none;
+      border-radius: 15px;
+      cursor: pointer;
+      font-weight: 600;
+      margin: 2rem auto 0;
+      display: block;
+      transition: all 0.3s ease;
+    }
+
+    .logout-btn:hover {
+      background: #c82333;
+      transform: translateY(-2px);
+    }
+
+    /* Estados de visibilidad */
+    .hidden {
+      display: none !important;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .auth-container,
+      .profile-container {
+        margin: 1rem;
+        padding: 2rem;
+      }
+
+      .profile-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .quick-actions {
+        grid-template-columns: 1fr;
+      }
+    }
