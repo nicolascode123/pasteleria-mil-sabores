@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autenticación</title>
+    <script defer src="static/app.js"></script>
+    <link rel="stylesheet" href="static/styleauth.css">
+    <style>
+    .tab { display: none; }
+    .active { display: block; }
+    </style>
+</head>
+<body>
+
+  <div class="auth-container">
+    <!-- Botones de pestañas -->
+    <div class="tabs">
+      <button onclick="mostrarTab('login')" class="active">Iniciar Sesión</button>
+      <button onclick="mostrarTab('register')">Registrar</button>
+      <button onclick="mostrarTab('admin')">Admin</button>
+    </div>
+
+    <!-- Formulario de login -->
+    <div id="login" class="tab active">
+      <h3>Iniciar Sesión</h3>
+      <input type="text" id="login-username" placeholder="Usuario">
+      <input type="password" id="login-password" placeholder="Contraseña">
+      <button class="action-btn" onclick="login()">Entrar</button>
+    </div>
+
+  <!-- Formulario de registro -->
+  <div id="register" class="tab">
+  <h3>Registro</h3>
+
+  <input type="text" id="reg-nombre" placeholder="Nombre completo" required>
+  <input type="text" id="reg-usuario" placeholder="Usuario" required>
+  <input type="password" id="reg-password" placeholder="Contraseña" required>
+  <input type="number" id="reg-edad" placeholder="Edad" required>
+  <input type="text" id="reg-codigo" placeholder="Código promocional (opcional)">
+  <input type="email" id="reg-email" placeholder="Correo electrónico" required>
+  <input type="tel" id="reg-telefono" placeholder="Teléfono" required>
+  <input type="text" id="reg-direccion" placeholder="Dirección completa" required>
+
+  <button class="action-btn" onclick="register()">Crear cuenta</button>
+</div>
+
+  <!--Formulario de admin-->
+    <div id="admin" class="tab">
+      <h3>Administrador</h3>
+      <input type="text" id="admin-username" placeholder="Usuario admin">
+      <input type="password" id="admin-password" placeholder="Contraseña">
+      <button class="action-btn" onclick="adminLogin()">Entrar como Admin</button>
+    </div>
+  </div>
+
+  <!-- Contenedor de notificaciones -->
+<div id="notificacion" class="notificacion"></div>
+
+</body>
+</html>
