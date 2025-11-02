@@ -1,0 +1,120 @@
+/* Fondo general */
+body {
+  font-family: 'Montserrat', sans-serif;
+  background: linear-gradient(to bottom right, #fdf5ec, #f9f2e7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+}
+
+/* Contenedor principal */
+.auth-container {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+}
+
+/* Contenedor de pestañas */
+.tabs {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+/* Botones de pestañas */
+.tabs button {
+  flex: 1;
+  margin: 0 4px;
+  padding: 0.7rem 1rem;
+  background: none;
+  border: 2px solid #8b4513;
+  border-radius: 50px; /* redondeado */
+  font-weight: bold;
+  color: #8b4513;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.tabs button.active,
+.tabs button:hover {
+  background: #8b4513;
+  color: #fff;
+}
+
+/* Formularios */
+.tab {
+  display: none;
+}
+
+.tab.active {
+  display: block;
+}
+
+h3 {
+  color: #8b4513;
+  margin-bottom: 1rem;
+}
+
+input {
+  padding: 12px;
+  border: 2px solid #d2a679;
+  border-radius: 50px;
+  font-size: 1rem;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+/* Botón de acción */
+button.action-btn {
+  width: 100%;
+  background: #8b4513;
+  color: #fff;
+  border: none;
+  padding: 12px;
+  border-radius: 50px;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button.action-btn:hover {
+  background: #a0522d;
+}
+
+/* Estilo base de las notificaciones */
+.notificacion {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 15px 20px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-family: 'Montserrat', sans-serif;
+  display: none;
+  z-index: 9999;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  transition: opacity 0.3s ease;
+  color: #fff;
+}
+
+/* Éxito */
+.notificacion.success {
+  background-color: #7a4b2d; /* marrón */
+}
+
+/* Error */
+.notificacion.error {
+  background-color: #c0392b; /* rojo oscuro */
+}
+
+/* Info */
+.notificacion.info {
+  background-color: #2980b9; /* azul */
+}

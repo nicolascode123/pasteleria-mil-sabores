@@ -1,0 +1,77 @@
+body {
+  font-family: 'Montserrat', sans-serif;
+  background: linear-gradient(to bottom right, #fdf5ec, #f9f2e7);
+  margin: 0;
+  display: flex;
+  min-height: 100vh;
+}
+
+.admin-wrapper {
+  display: flex;
+  width: 100%;
+}
+
+/* ===== SIDEBAR ===== */
+.admin-sidebar {
+  width: 250px;
+  background: #fff;
+  padding: 1.5rem;
+  border-right: 1px solid #eee;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  box-shadow: 4px 0 10px rgba(0,0,0,0.05);
+}
+
+/* Botón cerrar sesión */
+#logout-btn {
+  background: #d2691e;
+  color: #fff;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  width: 100%;
+  transition: 0.3s;
+}
+
+#logout-btn:hover {
+  background: #a0522d;
+}
+
+/* ===== NAV ===== */
+.admin-sidebar nav ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.admin-sidebar nav a {
+  display: block;
+  padding: 0.7rem 1rem;
+  background: #fff;
+  color: #d2691e;
+  border: 2px solid #d2691e;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: 0.3s;
+  text-align: center;
+}
+
+.admin-sidebar nav a:hover {
+  background: #d2691e;
+  color: #fff;
+}
+
+/* ===== MAIN ===== */
+.admin-main {
+  flex: 1;
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px 0 0 12px;
+}
