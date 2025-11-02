@@ -1,44 +1,126 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-/* === ESTILOS ORIGINALES === */
-/* === SLIDER OPTIMIZADO PARA HOMEPAGE === */
-.slick-slider {
-  max-width: 1200px;
-  margin: 0 auto;
+:root {
+  --app-background: #fff8f1;
+  --surface-color: #ffffff;
+  --text-primary: #4a2c2a;
+  --text-secondary: #7a4b2d;
+  --brand-primary: #d97706;
+  --brand-primary-dark: #92400e;
+  --brand-accent: #facc15;
+  --max-content-width: 1200px;
+  font-family: "Montserrat", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
-.slick-slide {
-  padding: 0 10px;
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--text-primary);
+  background-color: var(--app-background);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+section {
+  padding: clamp(3rem, 6vw, 4.5rem) 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Playfair Display", "Times New Roman", serif;
+  color: var(--text-primary);
+}
+
+.app-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--app-background);
+}
+
+.app-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+footer {
+  background-color: var(--text-primary);
+  color: #fffaf4;
+  text-align: center;
+  padding: 2.5rem 1.5rem;
+}
+
+/* === Slick carousel tweaks === */
+.slick-slider {width: 100%;
+  max-width: var(--max-content-width);
+    margin: 0 auto;
+}
+.slick-list {
+  overflow: hidden !important;
+  }
 
 .slick-track {
   display: flex !important;
   align-items: stretch;
 }
-
-.slick-list {
-  overflow: hidden !important;
-}
+.slick-slide {
+  padding: 0 12px;
+  }
 
 .slick-slide > div {
+  height: 100%;
   display: flex;
   justify-content: center;
 }
 
-.slick-dots {
-  bottom: -35px;
+.slick-dots { bottom: -32px;
 }
 
-.slick-dots li button:before {
-  color: #d97706 !important;
-  font-size: 12px;
-}
+.slick-dots li button:before { 
+  color: var(--brand-primary) !important;
+  font-size: 11px;
+  }
 
-.slick-dots li.slick-active button:before {
-  color: #92400e !important;
+.slick-dots li.slick-active button:before {  color: var(--brand-primary-dark) !important;
 }
 
 .line-clamp-2 {
@@ -47,67 +129,39 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
-
-
-/* Truncar descripción larga */
-.line-clamp-2 {
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-
-/* Truncar texto largo en las descripciones */
-.line-clamp-2 {
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-body {
-  margin: 0;
-  font-family: "Montserrat", sans-serif;
-  background-color: #fffaf4;
-  color: #4a2c2a;
-}
-
-h1, h2, h3 {
-  font-family: "Playfair Display", serif;
-}
-
-img {
-  max-width: 100%;
-  border-radius: 8px;
-}
-
-section {
-  padding: 60px 0;
-}
-
-/* Banner */
 .banner {
-  background-image: url("./imagenes/banner1.jpg");
+  background-image: url("./imagenes/banner1.png");
   background-size: cover;
   background-position: center;
+  background-repeat: no-repeat;
   color: white;
   text-align: center;
-  padding: 120px 20px;
+   padding: clamp(6rem, 10vw, 8rem) 1.5rem;
+  border-radius: 24px;
+  margin: 0 auto;
+  max-width: var(--max-content-width);
+  position: relative;
+  overflow: hidden;
+}
+.banner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.35) 100%);
+  pointer-events: none;
+}
+.banner > * {
+  position: relative;
+  z-index: 1;
 }
 
-/* Botones */
-button {
-  cursor: pointer;
-  border: none;
-  outline: none;
-  font-family: "Montserrat", sans-serif;
-}
+@media (max-width: 768px) {
+  .slick-slide {
+    padding: 0 6px;
+  }
 
-/* Ajustes del Footer */
-footer {
-  background-color: #4a2c2a;
-  color: #fffaf4;
-  text-align: center;
-  padding: 20px 0;
+  .banner {
+    border-radius: 16px;
+  }
 }

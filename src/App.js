@@ -1,12 +1,13 @@
 // src/App.js
 import React, { useEffect } from 'react';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import { AppProvider } from './context/AppContext';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Toast from './components/Toast';
 import AppRouter from './router/AppRouter';
 import { inicializarDatos } from './data/store';
+import './index.css';
 import './styles/styleindex.css';
 
 function App() {
@@ -16,22 +17,18 @@ function App() {
   }, []);
 
   return (
-    <BrowserRouter>
+    <Router>
       <AppProvider>
-        <div className="App" style={{ 
-          minHeight: '100vh', 
-          display: 'flex', 
-          flexDirection: 'column' 
-        }}>
+        <div className="app-shell">
           <Navbar />
-          <main style={{ flex: '1' }}>
+          <main className="app-content">
             <AppRouter />
           </main>
           <Footer />
           <Toast />
         </div>
       </AppProvider>
-    </BrowserRouter>
+    </Router>
   );
 }
 

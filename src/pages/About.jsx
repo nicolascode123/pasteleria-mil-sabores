@@ -1,5 +1,6 @@
 import React from "react";
 import "../styles/styleindex.css";
+import personasImg from "../imagenes/personas.png";
 
 export default function About() {
   return (
@@ -23,7 +24,7 @@ export default function About() {
         </p>
       </div>
       <div className="about-img">
-        <img src="/imagenes/personas.png" alt="Equipo de pastelería trabajando" />
+        <img src={personasImg} alt="Equipo de pastelería trabajando" />
       </div>
     </section>
   );

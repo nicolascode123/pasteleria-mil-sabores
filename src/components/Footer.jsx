@@ -1,7 +1,25 @@
 import React from 'react';
-import { Mail, Phone, MapPin } from 'lucide-react';
+import { Mail, Phone, MapPin, Instagram, Youtube, MessageCircle } from 'lucide-react';
 
 export default function Footer() {
+  const socialLinks = [
+    {
+      label: 'WhatsApp',
+      href: 'https://wa.me/56912345678',
+      Icon: MessageCircle,
+    },
+    {
+      label: 'Instagram',
+      href: 'https://instagram.com',
+      Icon: Instagram,
+    },
+    {
+      label: 'YouTube',
+      href: 'https://youtube.com',
+      Icon: Youtube,
+    },
+  ];
+
   return (
     <footer style={{
       background: 'linear-gradient(135deg, #7a4b2d 0%, #5a3621 100%)',
@@ -48,26 +66,39 @@ export default function Footer() {
 
         {/* REDES SOCIALES */}
         <div>
-          <h3 style={{ marginBottom: '1rem', fontSize: '1.3rem' }}>Síguenos</h3>
-          <div style={{ display: 'flex', gap: '1rem', fontSize: '1.5rem' }}>
-            <a href="https://wa.me/56912345678" target="_blank" rel="noopener noreferrer"
-               style={{ color: 'white', textDecoration: 'none', transition: 'opacity 0.3s' }}
-               onMouseEnter={(e) => e.target.style.opacity = '0.7'}
-               onMouseLeave={(e) => e.target.style.opacity = '1'}>
-              WhatsApp
-            </a>
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer"
-               style={{ color: 'white', textDecoration: 'none', transition: 'opacity 0.3s' }}
-               onMouseEnter={(e) => e.target.style.opacity = '0.7'}
-               onMouseLeave={(e) => e.target.style.opacity = '1'}>
-              Instagram
-            </a>
-            <a href="https://youtube.com" target="_blank" rel="noopener noreferrer"
-               style={{ color: 'white', textDecoration: 'none', transition: 'opacity 0.3s' }}
-               onMouseEnter={(e) => e.target.style.opacity = '0.7'}
-               onMouseLeave={(e) => e.target.style.opacity = '1'}>
-              YouTube
-            </a>
+          <div style={{ display: 'flex', gap: '0.8rem', flexWrap: 'wrap' }}>
+            {socialLinks.map(({ label, href, Icon }) => (
+              <a
+                key={label}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.5rem',
+                  padding: '0.6rem 1rem',
+                  borderRadius: '999px',
+                  background: 'rgba(255,255,255,0.12)',
+                  color: 'white',
+                  textDecoration: 'none',
+                  fontWeight: '600',
+                  letterSpacing: '0.5px',
+                  transition: 'transform 0.3s ease, background 0.3s ease',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-4px)';
+                  e.currentTarget.style.background = 'rgba(255,255,255,0.22)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.background = 'rgba(255,255,255,0.12)';
+                }}
+              >
+                <Icon size={18} />
+                <span>{label}</span>
+              </a>
+            ))}
           </div>
         </div>
       </div>
