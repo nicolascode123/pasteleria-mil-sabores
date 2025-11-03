@@ -300,81 +300,110 @@ body {
       display: block;
     }
 
-    /* ==============================
-    FORMULARIO DE PERSONALIZACIÓN
-    ============================== */
-    .personalize-modal {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.5);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 2000;
-      visibility: hidden;
-      opacity: 0;
-      transition: all 0.3s;
-    }
+/* ==============================
+FORMULARIO DE PERSONALIZACIÓN (RESPONSIVOv2)
+============================== */
 
-    .personalize-modal.active {
-      visibility: visible;
-      opacity: 1;
-    }
 
-    .personalize-container {
-      background: white;
-      border-radius: 20px;
-      padding: 2rem;
-      max-width: 500px;
-      width: 90%;
-      position: relative;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-    }
+.personalize-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  padding: 1rem;
+}
 
-    .size-options {
-      display: flex;
-      gap: 1rem;
-      margin-bottom: 1rem;
-    }
+.personalize-modal.active {
+  visibility: visible;
+  opacity: 1;
+}
 
-    .size-option {
-      flex: 1;
-      padding: 1rem;
-      border: 2px solid #e8e8e8;
-      border-radius: 10px;
-      cursor: pointer;
-      text-align: center;
-      transition: all 0.3s;
-    }
+.personalize-container {
+  background: white;
+  border-radius: 20px;
+  padding: 2rem;
+  max-width: 500px;
+  width: 100%;
+  position: relative;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  overflow-y: auto;
+  max-height: 90vh;
+}
 
-    .size-option.selected {
-      border-color: #d2691e;
-      background: #fff7f0;
-    }
+.size-options,
+.shape-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  justify-content: center;
+}
 
-    .shape-options {
-      display: flex;
-      gap: 1rem;
-      margin-bottom: 1rem;
-    }
+.size-option,
+.shape-option {
+  flex: 1 1 calc(50% - 1rem);
+  padding: 1rem;
+  border: 2px solid #e8e8e8;
+  border-radius: 10px;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.3s ease;
+  min-width: 140px;
+}
 
-    .shape-option {
-      flex: 1;
-      padding: 1rem;
-      border: 2px solid #e8e8e8;
-      border-radius: 10px;
-      cursor: pointer;
-      text-align: center;
-      transition: all 0.3s;
-    }
+.size-option.selected,
+.shape-option.selected {
+  border-color: #d2691e;
+  background: #fff7f0;
+  color: #7a4b2d;
+  font-weight: 600;
+}
 
-    .shape-option.selected {
-      border-color: #d2691e;
-      background: #fff7f0;
-    }
+@media (max-width: 768px) {
+  .personalize-container {
+    max-width: 420px;
+    padding: 1.5rem;
+  }
+
+  .size-option,
+  .shape-option {
+    flex: 1 1 100%;
+    font-size: 0.95rem;
+    padding: 0.9rem;
+  }
+}
+
+/* Pantallas pequeñas (celulares) */
+@media (max-width: 480px) {
+  .personalize-container {
+    max-width: 360px;
+    padding: 1rem;
+    border-radius: 15px;
+  }
+
+  .size-options,
+  .shape-options {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .size-option,
+  .shape-option {
+    width: 100%;
+    font-size: 0.9rem;
+    padding: 0.8rem;
+  }
+}
+
 
     /* ==============================
     RESULTADOS DE BÚSQUEDA
