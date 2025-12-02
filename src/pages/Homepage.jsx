@@ -1,7 +1,8 @@
 // src/pages/HomePage.jsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useApp } from '../context/AppContext';
+import { getProductos } from '../data/store';
 import PersonalizeModal from '../components/PersonalizeModal';
 import { Star, Heart, Award, Clock } from 'lucide-react';
 import '../styles/styleindex.css';
@@ -20,16 +21,37 @@ try {
 
 export default function Homepage() {
   const navigate = useNavigate();
-  const { productos, agregarAlCarrito } = useApp();
+  const { agregarAlCarrito } = useApp();
   const [showModal, setShowModal] = useState(false);
   const [productoSeleccionado, setProductoSeleccionado] = useState(null);
 
+  // 🔹 Productos para la home (cargados desde la API/fallback)
+  const [productos, setProductos] = useState([]);
+
+  useEffect(() => {
+    const cargar = async () => {
+      try {
+        const data = await getProductos();
+        const lista = Array.isArray(data) ? data : [];
+        console.log("HomePage - productos cargados:", lista);
+        setProductos(lista);
+      } catch (error) {
+        console.error("Error al cargar productos en Homepage:", error);
+        setProductos([]);
+      }
+    };
+    cargar();
+  }, []);
+
+  // Siempre aseguramos array
+  const listaProductos = Array.isArray(productos) ? productos : [];
+
   // Productos destacados (los primeros 6)
-  const productosDestacados = productos.slice(0, 6);
+  const productosDestacados = listaProductos.slice(0, 6);
 
   // Productos más vendidos (selección curada)
   const productosMasVendidosIds = [1, 3, 5, 7];
-  const productosMasVendidos = productos.filter(producto =>
+  const productosMasVendidos = listaProductos.filter(producto =>
     productosMasVendidosIds.includes(producto.id)
   );
 
@@ -164,51 +186,86 @@ export default function Homepage() {
             Los favoritos de nuestros clientes, elaborados con amor y calidad premium
           </p>
 
-          <div className="relative">
-            <Slider
-              infinite
-              autoplay
-              autoplaySpeed={2600}
-              slidesToShow={Math.min(productosMasVendidos.length, 4)}
-              slidesToScroll={1}
-              pauseOnHover
-              arrows={false}
-              responsive={[
-                { breakpoint: 1280, settings: { slidesToShow: 3 } },
-                { breakpoint: 1024, settings: { slidesToShow: 2 } },
-                { breakpoint: 768, settings: { slidesToShow: 1 } },
-              ]}
-            >
-              {productosMasVendidos.map((producto) => (
-                <div key={producto.id} className="px-3">
-                  <div className="bg-white rounded-2xl shadow-md hover:shadow-2xl transition-all transform hover:-translate-y-2 duration-300 overflow-hidden h-full flex flex-col">
-                    <img
-                      src={producto.imagen}
-                      alt={producto.nombre}
-                      className="w-full h-56 object-cover"
-                    />
-                    <div className="p-5 flex flex-col flex-1 text-center">
-                      <h3 className="text-lg font-bold text-amber-900 mb-2">
-                        {producto.nombre}
-                      </h3>
-                      <p className="text-gray-600 text-sm mb-3 line-clamp-2">
-                        {producto.descripcion}
-                      </p>
-                      <p className="text-amber-700 font-bold text-lg mb-4">
-                        ${producto.precio.toLocaleString("es-CL")}
-                      </p>
-                      <button
-                        onClick={() => handlePersonalizar(producto)}
-                        className="mt-auto bg-amber-600 text-white px-5 py-2 rounded-full hover:bg-amber-700 transition"
-                      >
-                        Personalizar
-                      </button>
+          {!!productosMasVendidos.length && (
+            <div className="relative">
+              <Slider
+                infinite
+                autoplay
+                autoplaySpeed={2600}
+                slidesToShow={Math.min(productosMasVendidos.length, 4)}
+                slidesToScroll={1}
+                pauseOnHover
+                arrows={false}
+                responsive={[
+                  { breakpoint: 1280, settings: { slidesToShow: 3 } },
+                  { breakpoint: 1024, settings: { slidesToShow: 2 } },
+                  { breakpoint: 768, settings: { slidesToShow: 1 } },
+                ]}
+              >
+                {productosMasVendidos.map((producto) => (
+                  <div key={producto.id} className="px-3">
+                    <div
+                      className="rounded-2xl shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-2 duration-300 bg-white overflow-hidden flex flex-col"
+                      style={{ border: "1px solid #f0e6d8" }}
+                    >
+                      <img
+                        src={producto.imagen}
+                        alt={producto.nombre}
+                        className="w-full h-56 object-cover"
+                      />
+
+                      <div className="p-5 flex flex-col flex-1">
+                        <h3 className="text-lg font-bold text-amber-900 mb-2">
+                          {producto.nombre}
+                        </h3>
+
+                        <div
+                          style={{
+                            background: "white",
+                            padding: "10px 15px",
+                            borderRadius: "12px",
+                            border: "1px solid #efddb5",
+                            marginBottom: "10px",
+                            color: "#6d4b33",
+                            lineHeight: "1.4",
+                            fontSize: "14px",
+                            minHeight: "70px",
+                          }}
+                        >
+                          {producto.descripcion}
+                        </div>
+
+                        <p className="text-amber-700 font-bold text-lg mb-4">
+                          ${producto.precio.toLocaleString("es-CL")}
+                        </p>
+
+                        <button
+                          onClick={() => handlePersonalizar(producto)}
+                          style={{
+                            width: "100%",
+                            background:
+                              "linear-gradient(135deg, #d2691e, #b25014)",
+                            color: "white",
+                            padding: "10px 15px",
+                            fontWeight: "bold",
+                            border: "none",
+                            borderRadius: "25px",
+                            cursor: "pointer",
+                            textTransform: "uppercase",
+                            letterSpacing: "1px",
+                            transition: "background 0.3s",
+                          }}
+                          className="mt-auto hover:opacity-90"
+                        >
+                          Personalizar
+                        </button>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
-            </Slider>
-          </div>
+                ))}
+              </Slider>
+            </div>
+          )}
         </div>
       </section>
 
