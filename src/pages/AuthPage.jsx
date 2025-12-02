@@ -10,10 +10,14 @@ export default function AuthPage() {
   const { login, registrar, currentUser } = useApp();
   const navigate = useNavigate();
 
-  // Si ya está logueado, redirigir al perfil
+  // Si ya está logueado, redirigir según su rol
   useEffect(() => {
     if (currentUser) {
-      navigate('/perfil');
+      if (currentUser.role === 'admin') {
+        navigate('/admin');
+      } else {
+        navigate('/perfil');
+      }
     }
   }, [currentUser, navigate]);
 
@@ -35,16 +39,26 @@ export default function AuthPage() {
   const handleLogin = (e) => {
     e.preventDefault();
     
-    // Simulación de login (en producción validarías con backend)
+    // Verificar si es administrador
+    const isAdmin = loginForm.email === 'admin@admin.com' && loginForm.password === 'admin123';
+    
+    // Crear datos del usuario
     const userData = {
       id: Date.now(),
-      name: loginForm.email.split('@')[0],
+      name: isAdmin ? 'Administrador' : loginForm.email.split('@')[0],
       email: loginForm.email,
-      discounts: []
+      discounts: [],
+      role: isAdmin ? 'admin' : 'customer'
     };
 
     login(userData);
-    navigate('/');
+    
+    // Redirigir según el rol
+    if (isAdmin) {
+      navigate('/admin');
+    } else {
+      navigate('/');
+    }
   };
 
   const handleRegister = (e) => {
@@ -91,6 +105,24 @@ export default function AuthPage() {
         {/* LOGIN FORM */}
         <div className={`tab ${activeTab === 'login' ? 'active' : ''}`}>
           <h3>Iniciar Sesión</h3>
+          
+          {/* Info de credenciales admin */}
+          <div style={{
+            background: '#fff7f0',
+            padding: '1rem',
+            borderRadius: '10px',
+            marginBottom: '1rem',
+            border: '2px solid #d2691e'
+          }}>
+            <p style={{ fontSize: '0.85rem', color: '#7a4b2d', margin: 0, fontWeight: 600 }}>
+              🔑 <strong>Acceso Administrador:</strong>
+            </p>
+            <p style={{ fontSize: '0.8rem', color: '#666', margin: '0.3rem 0 0 0' }}>
+              Email: <code style={{ background: '#fff', padding: '2px 6px', borderRadius: '4px' }}>admin@admin.com</code><br/>
+              Contraseña: <code style={{ background: '#fff', padding: '2px 6px', borderRadius: '4px' }}>admin123</code>
+            </p>
+          </div>
+
           <form onSubmit={handleLogin}>
             <input
               type="email"

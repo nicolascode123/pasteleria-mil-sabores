@@ -23,13 +23,20 @@ export const useApp = () => {
 export const AppProvider = ({ children }) => {
   const [carrito, setCarrito] = useState([]);
   const [currentUser, setCurrentUser] = useState(null);
-  const [productos] = useState(getProductos());
+  const [productos, setProductos] = useState([]);
   const [toast, setToast] = useState({ show: false, message: '', type: 'success' });
 
   // Cargar datos iniciales
   useEffect(() => {
     setCarrito(getCarrito());
     setCurrentUser(getCurrentUser());
+    
+    // Cargar productos de la API
+    const cargarProductos = async () => {
+      const productosData = await getProductos();
+      setProductos(productosData);
+    };
+    cargarProductos();
   }, []);
 
   // Guardar carrito cuando cambia

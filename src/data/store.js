@@ -1,4 +1,5 @@
 // src/data/store.js
+import { fetchProductos } from '../services/api.ts';
 
 // ========================================
 // PRODUCTOS LOCALES (FALLBACK)
@@ -150,67 +151,26 @@ let productos = [...productosBase];
 // Imagen genérica por si la API no trae imagen
 const imagenPlaceholder = productosBase[0]?.imagen;
 
-// Función para adaptar lo que venga de la API al formato de tu frontend
-const mapProductoApi = (item, index) => ({
-  id: item.id ?? item.codigo ?? index + 1,
-  codigo: item.codigo ?? `API-${item.id ?? index + 1}`,
-  nombre: item.nombre ?? item.name ?? "Producto sin nombre",
-  descripcion: item.descripcion ?? item.description ?? "",
-  precio: Number(item.precio ?? item.price ?? 0),
-  categoria: item.categoria ?? item.category ?? "general",
-  // como la API del profe no sabemos si trae imagen, usamos una por defecto
-  imagen: imagenPlaceholder,
-});
-
 // ========================================
 // FUNCIONES PÚBLICAS - PRODUCTOS
 // ========================================
 
-const API_BASE = "https://api-dfs2-dm-production.up.railway.app/api";
-
 export const getProductos = async () => {
-  console.log("Llamando a la API del profesor...");
-
   try {
-    const resp = await fetch(`${API_BASE}/pasteleria/productos`);
-    console.log("Status de respuesta:", resp.status);
-
-    if (!resp.ok) {
-      console.warn("Respuesta no OK de la API, usando datos locales");
-      return productos;
+    // Llamar a la API usando el servicio
+    const productosAPI = await fetchProductos(imagenPlaceholder);
+    
+    // Si la API retorna productos, usarlos
+    if (productosAPI && productosAPI.length > 0) {
+      productos = productosAPI;
+      return productosAPI;
     }
-
-    const data = await resp.json();
-    console.log("Datos crudos de la API:", data);
-
-    // 👉 Si NO es array, usamos locales
-    if (!Array.isArray(data)) {
-      console.warn(
-        "La API de pastelería no devolvió un array, usando datos locales"
-      );
-      return productos;
-    }
-
-    // 👉 Si es array PERO está vacío, también usamos locales
-    if (data.length === 0) {
-      console.warn(
-        "La API de pastelería devolvió un array vacío, usando productos locales"
-      );
-      return productos;
-    }
-
-    // Aquí ya sabemos que es un array con elementos
-    const normalizados = data.map((item, index) => mapProductoApi(item, index));
-    console.log("Productos normalizados desde API:", normalizados);
-
-    // Actualizamos el array en memoria
-    productos = normalizados;
-    return normalizados;
+    
+    // Si no hay productos de la API, usar locales
+    console.warn("Usando productos locales de fallback");
+    return productos;
   } catch (error) {
-    console.error(
-      "Error al obtener productos desde la API del profe, usando datos locales:",
-      error
-    );
+    console.error("Error al obtener productos, usando datos locales:", error);
     return productos;
   }
 };

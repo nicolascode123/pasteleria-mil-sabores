@@ -42,14 +42,20 @@ export default function Navbar() {
           {/* PERFIL / AUTH */}
           {currentUser ? (
             <>
-              <Link
-                to="/perfil"
-                className="perfil"
-                style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}
-              >
-                <User size={18} />
-                {currentUser.name}
-              </Link>
+              {/* Mostrar enlace Admin solo si es administrador */}
+              {currentUser.role === 'admin' && (
+                <Link
+                  to="/admin"
+                  className="perfil"
+                  style={{
+                    background: 'linear-gradient(135deg, #d2691e, #b25014)',
+                    color: 'white'
+                  }}
+                >
+                  Admin Panel
+                </Link>
+              )}
+              
               <button
                 onClick={handleLogout}
                 className="perfil"

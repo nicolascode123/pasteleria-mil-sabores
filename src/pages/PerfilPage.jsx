@@ -13,6 +13,9 @@ export default function PerfilPage() {
   useEffect(() => {
     if (!currentUser) {
       navigate('/auth');
+    } else if (currentUser.role === 'admin') {
+      // Si es admin, redirigir al panel de administración
+      navigate('/admin');
     } else {
       // Cargar pedidos del usuario
       const todosPedidos = getPedidos();
